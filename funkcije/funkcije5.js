@@ -10,7 +10,6 @@ function drawSquare(size) {
         if (i === 1 || i === size) {
             var star = "";
             for (var j = 1; j <= size; j++) {
-
                 star += asterisk;
             }
             console.log(star);

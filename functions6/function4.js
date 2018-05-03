@@ -12,5 +12,3 @@ function arrayOfDigits(number) {
 }
 
 console.log(arrayOfDigits(5687));
-
-console.log(eval("2 + p"));

@@ -2,8 +2,8 @@ function frequency(arr) {
     var mostFrequent = arr[0];
     var occurNum = 0;
     for (var i = 0; i < arr.length; i++) {
+        counter = 0;
         for (var j = 0; j < arr.length; j++) {
-            counter = 0;
             if (a[i] === a[j]) {
                 counter++;
             }

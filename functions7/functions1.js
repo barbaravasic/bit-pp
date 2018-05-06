@@ -1,22 +1,12 @@
-"use strict";
+// Why pay a fortune teller when you can just program your fortune yourself?
+// Write a function named tellFortune that:
+// takes 4 arguments: number of children, partner's name, geographic location, job title.
+// outputs your fortune to the screen like so: "You will be a X in Y, and married to Z with N kids."
+// Call that function 3 times with 3 different values for the arguments.
 
-var a = (function (numbers) {
-    var newArray = [];
-
-    for (var i = 0; i < numbers.length; i++) {
-        if (i === 0) {
-            newArray[i] = numbers[numbers.length - 1];
-        }else if (i === numbers.length - 1) {
-            newArray[i] = numbers[0];
-        } else {
-
-            newArray[i] = numbers[i];
-        }
-
-    }
-    return newArray;
-})([4, 5, 11, 9]);
+var tellFortune = (function(numberOfChildren, partner, location, job) {
+    return "You will be a " + job + " in " + location + ", and married to " + partner + " with " + numberOfChildren + " kids."
+}(2,"Nikola", "Novi Sad", "web developer" ));
 
 
-console.log(a);
-
+console.log(tellFortune);

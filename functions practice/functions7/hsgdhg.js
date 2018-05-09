@@ -1,13 +1,6 @@
-function test() {
-    var a;
-function foo() {
-        return 2;
-    }
-console.log(a); //undefined
-    console.log(foo()); //2
+var print =function () {
+    return console.log;
+ };
+ 
+ print()("This might work or not?");
 
-    a = 1;
-    
-}
-
-test();

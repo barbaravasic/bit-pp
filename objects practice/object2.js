@@ -22,20 +22,20 @@ barbara.sayHello();
 console.log(barbara.changeLastName("Mitrovic"));
 console.log(milos.changeLastName("Bla"));
 
-// console.log(barbara instanceof Student);
+console.log(barbara instanceof Student);
 
-// milos.isCooking = function() {
-//     console.log(this.name + " is cooking");
-// }
-// milos.isCooking();
+milos.isCooking = function() {
+    console.log(this.name + " is cooking");
+}
+milos.isCooking();
 
-// console.log(milos === barbara);
-// var student1 = milos;
-// console.log(student1 === milos);
+console.log(milos === barbara);
+var student1 = milos;
+console.log(student1 === milos);
 
-// student1.isStudying = function () {
-//     console.log(this.name + " is studying");
-// }
+student1.isStudying = function () {
+    console.log(this.name + " is studying");
+}
 
-// student1.isStudying();
+student1.isStudying();
 

@@ -3,12 +3,21 @@
 // 	'0000', 123, 'l' -> 0123 
 // '00000000', 123, 'r' -> 12300000
 
-function padString (someStr, someNumber) {
+function padEndString (someStr, someNumber) {
     var stringOutOfNumber = someNumber.toString();
     
-  return someStr.padStart(4, stringOutOfNumber);
+  return someStr.slice(0,1). padEnd(4, stringOutOfNumber);
  
 }
 
-console.log(padString("0000", 123));
+console.log(padEndString("0000", 123));
+
+function padStartString (someStr, someNumber) {
+  var stringOutOfNumber = someNumber.toString();
+  
+return someStr.slice(0, 5).padStart(8, stringOutOfNumber);
+
+}
+
+console.log(padStartString("00000000", 123));
 

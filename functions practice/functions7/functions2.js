@@ -12,12 +12,12 @@
 function calculateDogAge(dogAge = 0, humanYears = 0) {
     if (dogAge <= 0) {
 
-        dogAgeCalculator = function(){
+        var dogAgeCalculator = function(){
             return "Please insert your dog's age";
         };
     } else {
 
-        var dogAgeCalculator = function (dogAge) {
+      dogAgeCalculator = function (dogAge) {
             var newDogAge = 1;
             newDogAge = dogAge * 7;
             return  "Your doggie is " + newDogAge + " years old in dog years!";

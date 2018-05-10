@@ -2,14 +2,19 @@
 // Input: [1, 4, -2, 11, 8, 1, -2, 3]
 // Output:  { minValue: -2, minLastIndex: 6 }
 
-function findMinimum (input) {
+function findMinimum(input) {
     var value = {};
-  var numbers = input.join().split("");
-    var minValue = Math.min(numbers);
-    var lastIndex = input.lastIndexOf(minValue);
+    var numbersArr = [];
+    var minValue = input[0];
+    var lastIndex = 0;
+
+        minValue = Math.min([1, 4, -2, 11, 8, 1, -2, 3])
+    
+
+
     value.minValue = minValue;
     value.lastIndex = lastIndex;
-console.log(numbers);
+    console.log();
     return value;
 }
 

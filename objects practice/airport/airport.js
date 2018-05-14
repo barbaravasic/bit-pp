@@ -6,10 +6,10 @@
 
         this.name = name;
         this.surname = surname;
+    }
 
-        this.getData = function () {
-            return name + " " + surname;
-        }
+    Person.prototype.getData = function () {
+        return this.name + " " + this.surname;
     }
 
     function Seat(number, category) {
@@ -18,10 +18,10 @@
 
         this.number = number;
         this.category = category.toUpperCase();
+    }
 
-        this.getData = function () {
-            return this.number + ", " + this.category;
-        }
+    Seat.prototype.getData = function () {
+        return this.number + ", " + this.category;
     }
 
     function Passenger(person, seat) {
@@ -40,17 +40,18 @@
             this.seat = seat;
         }
 
-        function changeSeatCategoryOutput() {
-            if (seat.category === "B") {
-                return seat.category = "bussiness";
-            } else {
-                return seat.category = "economy";
-            }
-        }
+    }
 
-        this.getData = function () {
-            return seat.number + ", " + changeSeatCategoryOutput() + ", " + person.getData();
+    Passenger.prototype.changeSeatCategoryOutput = function () {
+        if (this.seat.category === "B") {
+            return this.seat.category = "bussiness";
+        } else {
+            return this.seat.category = "economy";
         }
+    }
+
+    Passenger.prototype.getData = function () {
+        return this.seat.number + ", " + this.changeSeatCategoryOutput() + ", " + this.person.getData();
     }
 
     function Flight(relation, date) {
@@ -59,98 +60,99 @@
         var inputDate = new Date(date);
         this.date = inputDate.getMonth() + 1 + "." + inputDate.getDate() + "." + inputDate.getFullYear();
         this.listOfPassengers = [];
-        var counter = 0;
-
-        this.addPassenger = function (passenger) {
-
-            try {
-                for (var i = 0; i < this.listOfPassengers.length; i++) {
-                    if (this.listOfPassengers[i].seat.number === passenger.seat.number)
-
-                        throw passenger.person.name + "'s seat number is already taken"
-                }
-            } catch (err) {
-                console.log(err);
-                passenger.seat.number = Math.floor(Math.random() * (100 - 10) + 10);
-            }
-
-            try {
-                for (var i = 0; i < this.listOfPassengers.length; i++) {
-                    if (passenger.person.getData() === this.listOfPassengers[i].person.getData())
-                        throw "There is already a person with that name on the list"
-                }
-            } catch (err) {
-
-                console.log(err);
-                this.listOfPassengers[i] = passenger;
-            }
-
-            try {
-                this.listOfPassengers.push(passenger);
-                if (this.listOfPassengers.length > 100)
-
-                    throw "There can be only 100 passengers"
-            } catch (err) {
-                console.log(err);
-                this.listOfPassengers.pop();
-            }
-
-        }
-        this.totalInBussiness = function () {
-            this.listOfPassengers.forEach(function (passenger) {
-                if (passenger.seat.category === "bussiness") {
-                    counter++;
-                }
-            })
-            return counter;
-        }
-
-
-
-        this.getData = function () {
-            var output = "";
-            var passOutput = "";
-            this.listOfPassengers.forEach(function (passenger) {
-                passOutput += "\t" + "\t" + passenger.getData() + "\n";
-
-            })
-            output = this.date + ", " + this.relation + ". In bussiness category: " + this.totalInBussiness() + "\n";
-
-            return output + passOutput;
-        }
+        
     }
+
+    Flight.prototype.addPassenger = function (passenger) {
+
+        try {
+            for (var i = 0; i < this.listOfPassengers.length; i++) {
+                if (this.listOfPassengers[i].seat.number === passenger.seat.number)
+
+                    throw passenger.person.name + "'s seat number is already taken"
+            }
+        } catch (err) {
+            console.log(err);
+            passenger.seat.number = Math.floor(Math.random() * (100 - 10) + 10);
+        }
+
+        try {
+            for (var i = 0; i < this.listOfPassengers.length; i++) {
+                if (passenger.person.getData() === this.listOfPassengers[i].person.getData())
+                    throw "There is already a person with that name on the list"
+            }
+        } catch (err) {
+
+            console.log(err);
+            this.listOfPassengers[i] = passenger;
+        }
+
+        try {
+            this.listOfPassengers.push(passenger);
+            if (this.listOfPassengers.length > 100)
+
+                throw "There can be only 100 passengers"
+        } catch (err) {
+            console.log(err);
+            this.listOfPassengers.pop();
+        }
+
+    }
+
+    Flight.prototype.totalInBussiness = function () {
+
+        var counter = 0;
+        this.listOfPassengers.forEach(function (passenger) {
+            if (passenger.seat.category === "bussiness") {
+                counter++;
+            }
+        })
+        return counter;
+    }
+
+    Flight.prototype.getData = function () {
+        var output = "";
+        var passOutput = "";
+        this.listOfPassengers.forEach(function (passenger) {
+            passOutput += "\t" + "\t" + passenger.getData() + "\n";
+
+        })
+        output = this.date + ", " + this.relation + ". In bussiness category: " + this.totalInBussiness() + "\n";
+
+        return output + passOutput;
+    }
+
 
     function Airport(name) {
 
-
         this.name = name;
         this.listOfFlights = [];
+    }
 
-        this.addFlight = function (flight) {
+    Airport.prototype.addFlight = function (flight) {
 
-            return this.listOfFlights.push(flight);
-        }
+        return this.listOfFlights.push(flight);
+    }
 
-        this.getData = function () {
-            var output = "";
-            var flightOutput = "";
-            var totalNumberOfPassengers = 0;
-            var totalNumberOfPassengersInBussiness = 0;
+    Airport.prototype.getData = function () {
+        var output = "";
+        var flightOutput = "";
+        var totalNumberOfPassengers = 0;
+        var totalNumberOfPassengersInBussiness = 0;
 
-            this.listOfFlights.forEach(function (flight) {
-                totalNumberOfPassengers += flight.listOfPassengers.length;
-                totalNumberOfPassengersInBussiness += flight.totalInBussiness();
-            })
-            this.listOfFlights.forEach(function (flight) {
+        this.listOfFlights.forEach(function (flight) {
+            totalNumberOfPassengers += flight.listOfPassengers.length;
+            totalNumberOfPassengersInBussiness += flight.totalInBussiness();
+        })
+        this.listOfFlights.forEach(function (flight) {
 
-                flightOutput += "\t" + flight.getData() + "\n";
+            flightOutput += "\t" + flight.getData() + "\n";
 
-            })
+        })
 
-            output = "Airport: " + this.name + ", " + "total number of passengers: " + totalNumberOfPassengers + ".Total in bussiness: "+ totalNumberOfPassengersInBussiness + "\n";
-            return output + flightOutput;
+        output = "Airport: " + this.name + ", " + "total number of passengers: " + totalNumberOfPassengers + ".Total in bussiness: " + totalNumberOfPassengersInBussiness + "\n";
+        return output + flightOutput;
 
-        }
     }
 
 

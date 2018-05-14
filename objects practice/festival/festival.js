@@ -4,12 +4,12 @@
 
     function Genre(name) {
         this.name = name;
+    }
 
-        this.getData = function () {
-            var uppercaseName = this.name.toUpperCase();
-            var genreData = uppercaseName[0] + uppercaseName[uppercaseName.length - 1]
-            return genreData;
-        }
+    Genre.prototype.getData = function () {
+        var uppercaseName = this.name.toUpperCase();
+        var genreData = uppercaseName[0] + uppercaseName[uppercaseName.length - 1]
+        return genreData;
     }
 
     function Movie(title, genre, length) {
@@ -23,11 +23,11 @@
         } catch (err) {
             console.log(err);
         }
+    }
 
-        this.getData = function () {
-            var movieData = this.title + ", " + this.length + ", " + this.genre.getData();
-            return movieData;
-        }
+    Movie.prototype.getData = function () {
+        var movieData = this.title + ", " + this.length + ", " + this.genre.getData();
+        return movieData;
     }
 
     function Program(date) {
@@ -36,29 +36,36 @@
         this.date = inputDate.getMonth() + 1 + "." + inputDate.getDate() + "." + inputDate.getFullYear();
         this.listOfMovies = [];
         this.totalNumberOfMovies = this.listOfMovies.length;
+    }
 
-        this.addMovie = function (movie) {
-            var counter = 0;
-            if (!movie && !(movie instanceof Movie)) {
-                console.log("Insert a valid movie");
-                return
-            }
+    Program.prototype.addMovie = function (movie) {
+        var counter = 0;
+        if (!movie && !(movie instanceof Movie)) {
+            console.log("Insert a valid movie");
+            return
+        }
 
-            for (var i = 0; i < this.listOfMovies.length; i++) {
-                if (this.listOfMovies[i].genre.name === movie.genre.name) {
-                    counter++;
-                }
-            }
-
-            if (counter > 3) {
-                console.log("There are already 4 movies that are of the same genre as " + movie.title);
-                return
-
-            } else {
-
-                this.listOfMovies.push(movie);
+        for (var i = 0; i < this.listOfMovies.length; i++) {
+            if (this.listOfMovies[i].genre.name === movie.genre.name) {
+                counter++;
             }
         }
+
+        if (counter > 3) {
+            console.log("There are already 4 movies that are of the same genre as " + movie.title);
+            return
+
+        } else {
+
+            this.listOfMovies.push(movie);
+        }
+    }
+
+
+
+    Program.prototype.getData = function () {
+        var outputString = "";
+        var programData = "";
 
         this.totalLengthOfMovies = function () {
             var totalLengthOfMovies = 0;
@@ -70,57 +77,56 @@
             return totalLengthOfMovies;
         }
 
-        this.getData = function () {
-            var outputString = "";
-            var programData = "";
+        this.listOfMovies.forEach(function (movie) {
 
-            this.listOfMovies.forEach(function (movie) {
-
-                programData += "\t" + movie.getData() + "\n" + "\t";
-            })
-            return outputString = this.date + ", " + " program duration " + this.totalLengthOfMovies() + ", " + "\n" + "\t" + programData;
-        }
+            programData += "\t" + movie.getData() + "\n" + "\t";
+        })
+        return outputString = this.date + ", " + " program duration " + this.totalLengthOfMovies() + ", " + "\n" + "\t" + programData;
     }
 
-    function Festival(name, maxNum) {
-        var totalNumOfMovies = 0;
-        var numOfMovies = 0;
+    function Festival(name) {
+
         this.name = name;
         this.listOfPrograms = [];
 
+    }
+
+    Festival.prototype.addProgram = function (program) {
+
+        var maxNum = 10;
+        var totalNumOfMovies = 0;
+        var numOfMovies = 0;
+        if (!program && !(program instanceof Program)) {
+            console.log("Insert a valid movie");
+            return
+        }
         try {
-            if (typeof maxNum === "string") throw "You must insert a number";
+            if (typeof maxNum === "string") {
+                throw "You must insert a number";
+            }
         } catch (err) {
             console.log(err)
         }
 
-        this.addProgram = function (program) {
-            if (!program && !(program instanceof Program)) {
-                console.log("Insert a valid movie");
-                return
-            }
-            
-            if (program.listOfMovies.length + totalNumOfMovies > maxNum) {
-                console.log("You can't have more than " + maxNum + " movies");
-               
-                return
-            }
-            this.listOfPrograms.push(program);
+        if (program.listOfMovies.length + totalNumOfMovies > maxNum) {
+            console.log("You can't have more than " + maxNum + " movies");
 
-            this.listOfPrograms.forEach(function (program) {
-                numOfMovies = program.listOfMovies.length;
-            })
-            totalNumOfMovies += numOfMovies;
-        
+            return
         }
+        this.listOfPrograms.push(program);
+
+        this.listOfPrograms.forEach(function (program) {
+            numOfMovies = program.listOfMovies.length;
+        })
+        totalNumOfMovies += numOfMovies;
 
         this.getData = function () {
             var outputString = "";
             var festivalData = "";
 
-            if(this.listOfPrograms.length === 0) {
-                return outputString = "Weekend fetsival" + "\n" + "\t" + "Program to be announced."
-            } 
+            if (this.listOfPrograms.length === 0) {
+                return outputString = "Weekend festival" + "\n" + "\t" + "Program to be announced."
+            }
 
             this.listOfPrograms.forEach(function (program) {
                 festivalData += program.getData() + "\n" + "\t";
@@ -183,13 +189,13 @@
 
 
     // Festivals:
-    var comicConByBarbaraAndKristina = new Festival("Smotra by Barbara... i Kristina!", 10);
-    var fest= new Festival("Festival", 10);
+    var comicConByBarbaraAndKristina = new Festival("Smotra by Barbara... i Kristina!");
+    var fest = new Festival("Festival");
 
     comicConByBarbaraAndKristina.addProgram(dayOne);
     comicConByBarbaraAndKristina.addProgram(dayTwo);
 
 
-    console.log(fest.getData());
+    console.log(comicConByBarbaraAndKristina);
 
-})()
+})();

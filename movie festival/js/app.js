@@ -1,4 +1,9 @@
-var programList=[];
+"use strict";
+
+var programList = [];
+var unsortedMoviesList = []
+var movieIndex = 0;
+var programIndex = 0;
 
 function Movie(title, length, genre) {
     this.title = title;
@@ -33,13 +38,14 @@ Program.prototype.calculateTotalLength = function () {
     return totalMovieLength;
 }
 
-Program.prototype.getInfo = function(){
+Program.prototype.getInfo = function () {
     return this.date;
 }
 
 
 var totalLength = document.querySelector("#total-length");
 var pLength = document.createElement("p");
+
 
 function createMovie() {
     var titleInput = document.querySelector("#title");
@@ -49,14 +55,23 @@ function createMovie() {
     var title = titleInput.value;
     var length = parseInt(lengthInput.value);
     var genre = genreInput.value;
-
+    // create Movie
     var createdMovie = new Movie(title, length, genre);
+    unsortedMoviesList.push(createdMovie);
+
+    titleInput.value = "";
+    lengthInput.value = "";
+    genreInput.value = "";
+
+    // Make movie options
     var chooseMovieInput = document.querySelector("#choose-movie");
     var optionMovie = document.createElement("option");
-    optionMovie.textContent = createdMovie;
+    optionMovie.textContent = unsortedMoviesList[movieIndex].title;
+    optionMovie.value = movieIndex;
     chooseMovieInput.appendChild(optionMovie);
-    
+    movieIndex++;
 
+    // Movie info
     var movieList = document.querySelector("#movie-list");
     var p = document.createElement("p");
     p.textContent = createdMovie.getData();
@@ -64,15 +79,31 @@ function createMovie() {
 
     pLength.textContent = myProgram.calculateTotalLength();
     totalLength.appendChild(pLength);
-   
+
 }
 
-function createProgram(){
+
+
+
+function createProgram() {
     var dateInput = document.querySelector("#date");
     var date = dateInput.value;
+
+    // Create Program
     var myProgram = new Program(date);
     programList.push(myProgram);
 
+    dateInput.value = "";
+
+    // Make program options
+    var chooseProgramInput = document.querySelector("#choose-program");
+    var optionProgram = document.createElement("option");
+    optionProgram.textContent = programList[programIndex].date;
+    optionProgram.value = programIndex;
+    chooseProgramInput.appendChild(optionProgram);
+    programIndex++;
+
+    // make program info
     var programInfo = document.querySelector("#program-info");
     var pProgramInfo = document.createElement("p");
     pProgramInfo.textContent = myProgram.getInfo();
@@ -81,14 +112,18 @@ function createProgram(){
 
 function addMovie() {
     var chooseMovieInput = document.querySelector("#choose-movie");
-    var chosenMovie = chooseMovieInput.value;
+    var chosenMovieIndex = chooseMovieInput.value;
 
     var chooseProgramInput = document.querySelector("#choose-program");
-    var chosenProgram = chooseMovieInput.value;
+    var chosenProgramIndex = chooseProgramInput.value;
 
-    // chosenProgram.addMovie(chosenMovie);
+    var chosenProgram = programList[chosenProgramIndex];
+    var chosenMovie = unsortedMoviesList[chosenMovieIndex];
+
+    chosenProgram.addMovie(chosenMovie);
+
     var test = document.querySelector("#test");
     var testing = document.createElement("p");
-    testing.textContent = chosenProgram + chosenMovie;
+    testing.textContent = chosenProgram.date + " " + chosenMovie.title;
     test.appendChild(testing);
 }

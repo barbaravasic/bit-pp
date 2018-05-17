@@ -26,8 +26,9 @@
                 <option value="drama">Drama</option>
                 <option value="horror">Horror</option>
             </select>
-            <input type="button" id="button" value="Create movie" onclick="createMovie()">
-            <div id="movie-list"></div>
+            <div class="validation-output first"></div>
+            <input type="button" id="button-movie" value="Create movie">
+            <ul id="movie-list"></ul>
             <div id="total-length"></div>
          </fieldset>
 
@@ -35,19 +36,23 @@
              <legend>Program</legend>
              <label for="date">Date:</label>
              <input type="date" id="date">
-             <input type="button" id="button-program" value="Create Program" onclick="createProgram()">
-             <div id="program-info"></div>
+             <div class="validation-output second"></div>
+             <input type="button" id="button-program" value="Create Program">
+             <ul id="program-info"></ul>
 
              <hr>
 
              <label for="choose-movie">Movie</label>
-             <select id="choose-movie"></select>
+             <select id="choose-movie" class="add-movie">
+                 <option>-</option>
+             </select>
 
             <label for="choose-program"></label>
-             <select id="choose-program"></select>
+             <select id="choose-program" class="add-movie">
+                 <option>-</option>
+             </select>
              <input type="button" id="add-movie-button" value="Add movie to program" onclick="addMovie()">
 
-             <div id="test"></div>
 
          </fieldset>
 

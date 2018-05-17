@@ -11,7 +11,7 @@ h1{
     text-align: center;
 }
 form{
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
     border: 1px solid black;
     padding:20px;
@@ -30,7 +30,7 @@ form select {
     width: 100%;
     margin-bottom: 10px;
 }
-#button,
+#button-movie,
 #button-program,
 #add-movie-button{
     height: 45px;
@@ -45,4 +45,7 @@ float: left;
 
 #total-length{
     float: right;
+}
+.validation {
+    color:red;
 }

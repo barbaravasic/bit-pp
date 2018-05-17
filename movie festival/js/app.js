@@ -2,9 +2,6 @@
 
 var programList = [];
 var unsortedMoviesList = []
-var movieIndex = 0;
-var programIndex = 0;
-
 
 var titleInput = document.querySelector("#title");
 var lengthInput = document.querySelector("#length");
@@ -92,12 +89,14 @@ function createMovie() {
     genreInput.value = "";
 
     // Make movie options
-    var optionMovie = document.createElement("option");
-    optionMovie.textContent = unsortedMoviesList[movieIndex].title;
-    optionMovie.value = movieIndex;
-    chooseMovieInput.appendChild(optionMovie);
-    movieIndex++;
 
+    var optionMovie = document.createElement("option");
+    for (var i = 0; i < unsortedMoviesList.length; i++) {
+        optionMovie.textContent = unsortedMoviesList[i].title;
+        optionMovie.value = i;
+        chooseMovieInput.appendChild(optionMovie);
+    }
+    
     var sumTotalLength = 0;
     unsortedMoviesList.forEach(function (movie) {
         sumTotalLength += movie.length;
@@ -121,6 +120,7 @@ validationOutput2.appendChild(validOut2);
 
 // var programData = pProgramInfo.textContent;
 
+
 function createProgram() {
     var date = dateInput.value;
 
@@ -139,18 +139,21 @@ function createProgram() {
 
     // Make program options
     var optionProgram = document.createElement("option");
-    optionProgram.textContent = programList[programIndex].date;
-    optionProgram.value = programIndex;
-    chooseProgramInput.appendChild(optionProgram);
-    programIndex++;
+
+    for (var i = 0; i < programList.length; i++) {
+        optionProgram.textContent = programList[i].date;
+        optionProgram.value = i;
+        chooseProgramInput.appendChild(optionProgram);
+    }
 
     // make program info
-    var programInfo = document.querySelector("#program-info");
-    var pProgramInfo = document.createElement("li");
-    pProgramInfo.textContent = myProgram.getInfo();
-    programInfo.appendChild(pProgramInfo);
 
+    pProgramInfo.textContent = myProgram.getInfo();
+    
 }
+var programInfo = document.querySelector("#program-info");
+var pProgramInfo = document.createElement("li");
+programInfo.appendChild(pProgramInfo);
 
 
 function addMovie() {
@@ -164,12 +167,15 @@ function addMovie() {
     chosenProgram.addMovie(chosenMovie);
 
     var allProgramInfo = document.querySelectorAll("#program-info li");
-
-    allProgramInfo.forEach(function(program){
-        if(program)
+    var programData = chosenProgram.getInfo();
+    allProgramInfo.forEach(function (program) {
+        if (program.textContent !== programData) {
+           
+            program.textContent = chosenProgram.getInfo();
+            
+        }
     })
-    pProgramInfo.textContent = chosenProgram.date + " " + chosenMovie.title;
-
+    
 }
 
 var btnMovie = document.querySelector("#button-movie");

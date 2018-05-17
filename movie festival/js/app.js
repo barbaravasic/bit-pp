@@ -118,9 +118,8 @@ var validationOutput2 = document.querySelector(".second");
 var validOut2 = document.createElement("p")
 validationOutput2.appendChild(validOut2);
 
-var programInfo = document.querySelector("#program-info");
-var pProgramInfo = document.createElement("li");
-var programData = pProgramInfo.textContent;
+
+// var programData = pProgramInfo.textContent;
 
 function createProgram() {
     var date = dateInput.value;
@@ -131,22 +130,23 @@ function createProgram() {
         validOut2.classList.add("validation");
         return;
     }
-    
+
     // Create Program
     var myProgram = new Program(date);
     programList.push(myProgram);
-    
+
     dateInput.value = "";
-    
+
     // Make program options
     var optionProgram = document.createElement("option");
     optionProgram.textContent = programList[programIndex].date;
     optionProgram.value = programIndex;
     chooseProgramInput.appendChild(optionProgram);
     programIndex++;
-    
+
     // make program info
-    
+    var programInfo = document.querySelector("#program-info");
+    var pProgramInfo = document.createElement("li");
     pProgramInfo.textContent = myProgram.getInfo();
     programInfo.appendChild(pProgramInfo);
 
@@ -165,13 +165,11 @@ function addMovie() {
 
     var allProgramInfo = document.querySelectorAll("#program-info li");
 
-    // allProgramInfo.forEach(function(program){
-    //     if(program.textContent = programData) {
-
-    //     }
-    // })
+    allProgramInfo.forEach(function(program){
+        if(program)
+    })
     pProgramInfo.textContent = chosenProgram.date + " " + chosenMovie.title;
-   
+
 }
 
 var btnMovie = document.querySelector("#button-movie");

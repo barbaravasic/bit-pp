@@ -53,9 +53,9 @@
 
     }
 
-    function BettingPlace(adress) {
+    function BettingPlace(address) {
         var sum 
-        this.adress = adress;
+        this.address = address;
         this.listOfPlayers = [];
     }
     BettingPlace.prototype.addAPlayer = function(player) {
@@ -128,5 +128,6 @@
     var betPlace1 = createBettingPlace (serbia, "Belgrade", 11000, "Nemanjina", 4)
  
     console.log(betHouse1);
+    
 
 })()

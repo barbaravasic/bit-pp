@@ -5,34 +5,35 @@ function collectAllFormData() {
 
 }
 
-function validateData(nameSurname, grade) {
-    var name1stLetter = nameSurname.slice(0, 1).toString();
-    var nameSurnameSplit = nameSurname.split(" ");
-    var surname1stLetter = nameSurnameSplit[1].slice(0, 1).toString();
+function validateData(name, surname, grade) {
 
     if (name1stLetter !== name1stLetter.toUpperCase() || surname1stLetter !== surname1stLetter.toUpperCase()) {
         var validateName = document.querySelector(".nameValidation");
         validateName.textContent = "Both name and surname must start with capitals!";
     }
 
-    if(grade < 5 && grade > 10) {
+    if (grade < 5 && grade > 10) {
         var validateGrade = document.querySelector(".gradeValidation");
         validateGrade.textContent = "A grade should be valid numerical value from 5 to 10!"
     }
 }
 
-function updateList() {
+function updateList(examList, student) {
     var passedList = document.querySelector("#passed-list");
     var failedList = document.querySelector("#failed-list");
     var listItem = document.createElement("li");
-    
-    if(grade > 5){
-        listItem.textContent = nameSurname;
-        passedList.appendChild(listItem);
-    } else {
-        listItem.textContent = nameSurname;
-        failedList.appendChild(listItem);
-    }
+
+    examList.forEach(function (exam) {
+        if (exam.grade > 5) {
+            listItem.textContent = student.getStudentData();
+            passedList.appendChild(listItem);
+        } else {
+            listItem.textContent = student.getStudentData();
+            failedList.appendChild(listItem);
+        }
+
+    })
+
 }
 
 function updateStatistics() {

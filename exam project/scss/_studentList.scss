@@ -1,0 +1,23 @@
+.students-lists {
+    width: 900px;
+    margin: 60px auto;
+    #passed-list{
+        float: left;
+        width:40%;
+    }
+    #failed-list{
+        float:right;
+        width: 40%;
+        margin-right:10px;
+    }
+    h5{
+        font-size: 20px;
+        font-weight: 100;
+    }
+    #passed-list-title {
+        color: gray;
+    }
+    #failed-list-title {
+        color: $failed-color;
+    }
+}

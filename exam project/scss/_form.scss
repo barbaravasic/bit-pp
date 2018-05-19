@@ -1,0 +1,45 @@
+
+#form {
+    border-bottom: 1px solid lightgray;
+    form{
+        margin: 20px auto;
+        height: 60px;
+        width: 750px;
+        select, input,button {
+            display: block;
+            height: 45px;
+            float: left;
+            margin-right: 15px;
+        
+        }
+        select {
+            color: #444;
+            font-size: 18px;
+            width: 100px;
+            border-color: lightgray;
+        }
+        input{
+            box-sizing: border-box;
+            padding: 0;
+            color: gray; 
+            padding-left: 10px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+           
+        }
+        .name-input{
+         width: 400px;
+        }
+        .grade-input{
+            width: 90px;
+        }
+        button{
+            margin-right:0;
+            border: none;
+            background: transparent;
+            font-size: 35px;
+            color: $passed-color;
+        }
+    }
+}
+

@@ -148,7 +148,7 @@ function createProgram() {
 
     // make program info
 
-    pProgramInfo.textContent = myProgram.getInfo();
+    // pProgramInfo.textContent = myProgram.getInfo();
     
 }
 var programInfo = document.querySelector("#program-info");

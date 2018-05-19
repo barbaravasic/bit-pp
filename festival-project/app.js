@@ -8,6 +8,15 @@ var chooseProgramInput = document.querySelector("#choose-program");
 var dateInput = document.querySelector("#date");
 var divMovieList = document.querySelector("#movie-list");
 
+var createMovieValidDiv = document.querySelector(".first");
+var totalLength = document.querySelector("#total-length");
+var createMovieValidOutput = document.createElement("p")
+createMovieValidDiv.appendChild(createMovieValidOutput);
+var pLength = document.createElement("p");
+var programValidationOutputDiv = document.querySelector(".second");
+var programValidation = document.createElement("p")
+programValidationOutputDiv.appendChild(programValidation);
+var programInfo = document.querySelector("#program-info");
 
 var programList = [];
 var unsortedMoviesList = [];
@@ -28,8 +37,7 @@ Movie.prototype.getData = function () {
 }
 
 function Program(date) {
-    var inputDate = new Date(date);
-    this.date = inputDate.getDate() + "." + inputDate.getMonth() + "." + inputDate.getFullYear();
+    this.date = new Date(date);
     this.movieList = [];
 }
 
@@ -55,13 +63,6 @@ Program.prototype.getInfo = function () {
     }
     return output;
 }
-
-var createMovieValidDiv = document.querySelector(".first");
-var createMovieValidOutput = document.createElement("p")
-createMovieValidDiv.appendChild(createMovieValidOutput);
-
-var totalLength = document.querySelector("#total-length");
-var pLength = document.createElement("p");
 
 function createMovie() {
 
@@ -113,20 +114,35 @@ function createMovie() {
     divMovieList.appendChild(liItem);
 }
 
-var programValidationOutputDiv = document.querySelector(".second");
-var programValidation = document.createElement("p")
-programValidationOutputDiv.appendChild(programValidation);
 
-var programInfo = document.querySelector("#program-info");
 
 function createProgram() {
-    var date = dateInput.value;
+    var date = new Date(dateInput.value);
 
-    if (!date) {
+    if (!dateInput.value) {
         programValidation.textContent = "Please select date";
         programValidation.classList.add("validation");
         return;
     }
+
+   
+
+    if (date.getTime() < Date.now()) {
+        programValidation.textContent = "Invalid date!";
+        programValidation.classList.add("validation");
+        return;
+    }
+    var hasProgramWithSameDate = programList.some(function (program) {
+        return date.getTime() === program.date.getTime();
+    })
+
+    if (hasProgramWithSameDate) {
+        programValidation.textContent = "Program for same date already exists";
+        programValidation.classList.add("validation");
+        return;
+    }
+    programValidation.textContent = "";
+    
 
     // Create Program
     var myProgram = new Program(date);
@@ -193,6 +209,6 @@ var btnMovie = document.querySelector("#button-movie");
 var btnProgram = document.querySelector("#button-program");
 var btnAddMovie = document.querySelector("#add-movie-button");
 
-btnMovie.onclick = createMovie;
-btnProgram.onclick = createProgram;
-btnAddMovie.onclick = addMovie;
+btnMovie.addEventListener("click", createMovie);
+btnProgram.addEventListener("click",  createProgram);
+btnAddMovie.addEventListener("click", addMovie);

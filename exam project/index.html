@@ -20,9 +20,11 @@
 
         <div id="passed" class="final-count cf">
             <p>PASSED</p>
+            <p id="passed-count"></p>
         </div>
         <div id="failed" class="final-count cf">
             <p>FAILED</p>
+            <p id="failed-count"></p>
         </div>
     </header>
 
@@ -34,8 +36,10 @@
                 <option value="spa">SPA</option>
             </select>
             <input type="text" class="name-input" placeholder="Name Surname">
+            <p class="validation nameValidation"></p>
             <input type="number" class="grade-input" placeholder="Grade">
-            <button type="button">
+            <p class="validation gradeValidation"></p>
+            <button type="button" id="add-button">
                 ADD
             </button>
         </form>

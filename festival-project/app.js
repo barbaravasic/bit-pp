@@ -1,20 +1,20 @@
 "use strict";
 
-var programList = [];
-var unsortedMoviesList = []
-
 var titleInput = document.querySelector("#title");
-var lengthInput = document.querySelector("#length");
+var durationInput = document.querySelector("#duration");
 var genreInput = document.querySelector("#genre");
 var chooseMovieInput = document.querySelector("#choose-movie");
 var chooseProgramInput = document.querySelector("#choose-program");
 var dateInput = document.querySelector("#date");
+var divMovieList = document.querySelector("#movie-list");
 
 
+var programList = [];
+var unsortedMoviesList = [];
 
-function Movie(title, length, genre) {
+function Movie(title, duration, genre) {
     this.title = title;
-    this.length = length;
+    this.duration = duration;
     this.genre = genre;
 }
 
@@ -23,7 +23,7 @@ Movie.prototype.getData = function () {
     var genreID2 = this.genre.slice(this.genre.length - 1);
     var genreID = (genreID1 + genreID2).toUpperCase();
 
-    var output = this.title + ", " + this.length + "min, " + genreID;
+    var output = this.title + ", " + this.duration + "min, " + genreID;
     return output;
 }
 
@@ -37,41 +37,43 @@ Program.prototype.addMovie = function (movie) {
     this.movieList.push(movie);
 }
 
-Program.prototype.moviesLength = function () {
-    var moviesLength = 0;
+Program.prototype.moviesDuration = function () {
+    var moviesDuration = 0;
     this.movieList.forEach(function (movie) {
-        moviesLength += parseInt(movie.length);
+        moviesDuration += parseInt(movie.duration);
     })
-    return moviesLength;
+    return moviesDuration;
 }
 
 
 Program.prototype.getInfo = function () {
     var output = "";
-    if (this.moviesLength.length === 0) {
+    if (this.movieList.length === 0) {
         output = this.date + ", " + "program duration:" + "TBA";
     } else {
-        output = this.date + ", " + this.movieList.length + " movies" + ", " + this.moviesLength() + " min"
+        output = this.date + ", " + this.movieList.length + " movies" + ", " + this.moviesDuration() + " min"
     }
     return output;
 }
-
 
 var createMovieValidDiv = document.querySelector(".first");
 var createMovieValidOutput = document.createElement("p")
 createMovieValidDiv.appendChild(createMovieValidOutput);
 
+var totalLength = document.querySelector("#total-length");
+var pLength = document.createElement("p");
+
 function createMovie() {
-    var divMovieList = document.querySelector("#movie-list");
+
     var liItem = document.createElement("li");
 
 
     var title = titleInput.value;
-    var length = parseInt(lengthInput.value);
+    var duration = parseInt(durationInput.value);
     var genre = genreInput.value;
 
-
-    if (!title || !length || !genre) {
+    // Create Movie Validation
+    if (!title || !duration || !genre) {
 
         createMovieValidOutput.textContent = "All fields required!";
         createMovieValidOutput.classList.add("validation");
@@ -81,29 +83,27 @@ function createMovie() {
     createMovieValidOutput.textContent = "";
 
     // create Movie
-    var createdMovie = new Movie(title, length, genre);
+    var createdMovie = new Movie(title, duration, genre);
     unsortedMoviesList.push(createdMovie);
 
     titleInput.value = "";
-    lengthInput.value = "";
+    durationInput.value = "";
     genreInput.value = "";
 
     // Make movie options
-
     var optionMovie = document.createElement("option");
     for (var i = 0; i < unsortedMoviesList.length; i++) {
         optionMovie.textContent = unsortedMoviesList[i].title;
         optionMovie.value = i;
         chooseMovieInput.appendChild(optionMovie);
     }
-    
+
     var sumTotalLength = 0;
     unsortedMoviesList.forEach(function (movie) {
-        sumTotalLength += movie.length;
+        sumTotalLength += movie.duration;
 
     })
-    var totalLength = document.querySelector("#total-length");
-    var pLength = document.createElement("p");
+
     totalLength.appendChild(pLength);
     pLength.textContent = sumTotalLength;
 
@@ -113,21 +113,18 @@ function createMovie() {
     divMovieList.appendChild(liItem);
 }
 
-var createMovie2 = document.querySelector(".second");
-var validOut2 = document.createElement("p")
-createMovie2.appendChild(validOut2);
+var programValidationOutputDiv = document.querySelector(".second");
+var programValidation = document.createElement("p")
+programValidationOutputDiv.appendChild(programValidation);
 
-
-// var programData = pProgramInfo.textContent;
-
+var programInfo = document.querySelector("#program-info");
 
 function createProgram() {
     var date = dateInput.value;
 
     if (!date) {
-
-        validOut2.textContent = "Please select date";
-        validOut2.classList.add("validation");
+        programValidation.textContent = "Please select date";
+        programValidation.classList.add("validation");
         return;
     }
 
@@ -147,13 +144,12 @@ function createProgram() {
     }
 
     // make program info
+    var programInfoLi = document.createElement("li");
+    programInfoLi.textContent = myProgram.getInfo();
+    programInfo.appendChild(programInfoLi);
 
-    pProgramInfo.textContent = myProgram.getInfo();
-    
 }
-var programInfo = document.querySelector("#program-info");
-var pProgramInfo = document.createElement("li");
-programInfo.appendChild(pProgramInfo);
+
 
 
 function addMovie() {
@@ -164,19 +160,34 @@ function addMovie() {
     var chosenMovie = unsortedMoviesList[chosenMovieIndex];
     var chosenProgram = programList[chosenProgramIndex];
 
-    chosenProgram.addMovie(chosenMovie);
+    var programListElements = document.querySelectorAll("#program-info li");
+    var programSelectOptions = document.querySelectorAll("#choose-program option");
 
-    var allProgramInfo = document.querySelectorAll("#program-info li");
-    var programData = chosenProgram.getInfo();
-    allProgramInfo.forEach(function (program) {
-        if (program.textContent !== programData) {
-           
-            program.textContent = chosenProgram.getInfo();
-            
+    // var movieValue = chooseMovieInput.value;
+    // var programValue = chooseProgramInput.value;
+
+    var movie = unsortedMoviesList[chosenMovieIndex];
+    var program = programList[chosenProgramIndex];
+    var oldProgramData = program.getInfo();
+
+    program.addMovie(movie);
+
+    programListElements.forEach(function (li) {
+        if (li.textContent === oldProgramData) {
+            li.textContent = program.getInfo();
         }
-    })
-    
+    });
+
+    programSelectOptions.forEach(function (option) {
+        if (option.textContent === oldProgramData) {
+            option.textContent = program.getInfo();
+        }
+    });
+
 }
+
+
+
 
 var btnMovie = document.querySelector("#button-movie");
 var btnProgram = document.querySelector("#button-program");

@@ -33,14 +33,22 @@ function updateList(examList) {
     var passedList = document.querySelector("#passed-list");
     var failedList = document.querySelector("#failed-list");
     var listItem = document.createElement("li");
+    var spanGrade = document.createElement("span");
+    spanGrade.classList.add("grade-span");
 
     examList.forEach(function (exam) {
         if (exam.grade > 5) {
-            listItem.textContent = exam.getExamInfo();
+            listItem.textContent = exam.student.getStudentData();
+            spanGrade.textContent = exam.grade;
+            spanGrade.classList.add("passed-span");
             passedList.appendChild(listItem);
+            listItem.appendChild(spanGrade);
         } else {
-            listItem.textContent = exam.getExamInfo();
+            listItem.textContent = exam.student.getStudentData();
+            spanGrade.textContent = exam.grade;
+            spanGrade.classList.add("failed-span");
             failedList.appendChild(listItem);
+            listItem.appendChild(spanGrade);
         }
     })
 

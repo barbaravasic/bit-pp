@@ -20,4 +20,19 @@
     #failed-list-title {
         color: $failed-color;
     }
+    li{
+        list-style-type: none;
+        padding-left: 0;
+        color: gray;
+        font-size: 18px;
+    }
+    .grade-span {
+        float: right;
+    }
+    .passed-span {
+        color: $passed-color;
+    }
+    .failed-span{
+        color: $failed-color;
+    }
 }

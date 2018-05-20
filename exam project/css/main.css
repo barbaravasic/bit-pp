@@ -113,5 +113,16 @@ header {
     color: gray; }
   .students-lists #failed-list-title {
     color: #FF5049; }
+  .students-lists li {
+    list-style-type: none;
+    padding-left: 0;
+    color: gray;
+    font-size: 18px; }
+  .students-lists .grade-span {
+    float: right; }
+  .students-lists .passed-span {
+    color: #28b9b5; }
+  .students-lists .failed-span {
+    color: #FF5049; }
 
 /*# sourceMappingURL=main.css.map */

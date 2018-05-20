@@ -69,7 +69,6 @@ function updateList(examList) {
             listItem.appendChild(spanContainer);
         }
     })
-
 }
 
 function updateStatistics(passedList, failedList, examList) {

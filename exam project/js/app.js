@@ -82,6 +82,16 @@ function updateCurrentMonth() {
     statDate.textContent = getCurrentMonth();
 }
 
+function resetList() {
+    var listItems = document.querySelectorAll("#passed-student-list li");
+
+    listItems.forEach(function(li){
+        li.textContent = "";
+    })
+
+
+}
+
 updateCurrentMonth();
 createSubject();
 
@@ -93,3 +103,4 @@ addButton.addEventListener("click", function () {
     update();
 });
 
+// var xButton = document.querySelector

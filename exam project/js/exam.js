@@ -5,7 +5,7 @@ function Exam(subject, student, grade) {
 }
 
 Exam.prototype.getExamInfo = function() {
-    return this.subject + ", " + this. student + ", " + this.grade;
+    return this.subject.name + ", " + this. student.getStudentData() + ", " + this.grade;
 }
 
 Exam.prototype.hasPassed = function() {

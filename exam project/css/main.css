@@ -118,7 +118,13 @@ header {
     padding-left: 0;
     color: gray;
     font-size: 18px; }
+  .students-lists .span-li {
+    float: left; }
+  .students-lists .span-container {
+    float: right; }
   .students-lists .grade-span {
+    float: left; }
+  .students-lists .span-x {
     float: right; }
   .students-lists .passed-span {
     color: #28b9b5; }

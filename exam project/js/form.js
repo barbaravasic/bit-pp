@@ -33,22 +33,40 @@ function updateList(examList) {
     var passedList = document.querySelector("#passed-list");
     var failedList = document.querySelector("#failed-list");
     var listItem = document.createElement("li");
+    listItem.classList.add("cf");
+    var spanLi = document.createElement("span");
+    spanLi.classList.add("span-li");
+    var spanContainer = document.createElement("span");
+    spanContainer.classList.add("span-container");
+    spanContainer.classList.add("cf");
     var spanGrade = document.createElement("span");
     spanGrade.classList.add("grade-span");
+    var spanX = document.createElement("span");
+    spanX.classList.add("span-x");
 
     examList.forEach(function (exam) {
         if (exam.grade > 5) {
-            listItem.textContent = exam.student.getStudentData();
+            spanLi.textContent = exam.student.getStudentData();
             spanGrade.textContent = exam.grade;
             spanGrade.classList.add("passed-span");
+            spanX.textContent = "X";
+            spanX.classList.add("passed-span");
             passedList.appendChild(listItem);
-            listItem.appendChild(spanGrade);
+            spanContainer.appendChild(spanGrade);
+            spanContainer.appendChild(spanX);
+            listItem.appendChild(spanLi);
+            listItem.appendChild(spanContainer);
         } else {
-            listItem.textContent = exam.student.getStudentData();
+            spanLi.textContent = exam.student.getStudentData();
             spanGrade.textContent = exam.grade;
             spanGrade.classList.add("failed-span");
+            spanX.textContent = "X";
+            spanX.classList.add("failed-span");
             failedList.appendChild(listItem);
-            listItem.appendChild(spanGrade);
+            spanContainer.appendChild(spanGrade);
+            spanContainer.appendChild(spanX);
+            listItem.appendChild(spanLi);
+            listItem.appendChild(spanContainer);
         }
     })
 

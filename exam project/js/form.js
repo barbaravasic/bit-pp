@@ -44,8 +44,7 @@ function updateList(examList) {
 }
 
 function updateStatistics(passedList, failedList, examList) {
-    var statDate = document.querySelector("#statistic-date");
-    statDate.textContent = getCurrentMonth();
+    
 
     var studentsCount = document.querySelector("#students-count");
     studentsCount.textContent = examList.length;

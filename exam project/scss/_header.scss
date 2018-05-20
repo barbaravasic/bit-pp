@@ -34,6 +34,15 @@ header{
             float: left;
             padding-left: 10px;
         }
+        .count{
+            float: right;
+            width: 65px;
+        }
+        #passed-count,
+        #failed-count,
+        #failed-percent{
+            color: white;
+        }
     }
     #passed{
         background-color: $passed-color;

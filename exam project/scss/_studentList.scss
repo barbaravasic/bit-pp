@@ -35,8 +35,11 @@
     .grade-span {
         float: left;
     }
-    .span-x {
+    .btn-x {
         float: right;
+        border: none;
+        background: transparent;
+        font-size: 18px;
     }
     .passed-span {
         color: $passed-color;

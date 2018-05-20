@@ -46,6 +46,13 @@ header {
       line-height: 45px;
       float: left;
       padding-left: 10px; }
+    header .final-count .count {
+      float: right;
+      width: 65px; }
+    header .final-count #passed-count,
+    header .final-count #failed-count,
+    header .final-count #failed-percent {
+      color: white; }
   header #passed {
     background-color: #28b9b5; }
   header #failed {
@@ -80,7 +87,7 @@ header {
       width: 400px; }
     #form form .grade-input {
       width: 90px; }
-    #form form button {
+    #form form #add-button {
       margin-right: 0;
       border: none;
       background: transparent;
@@ -124,8 +131,11 @@ header {
     float: right; }
   .students-lists .grade-span {
     float: left; }
-  .students-lists .span-x {
-    float: right; }
+  .students-lists .btn-x {
+    float: right;
+    border: none;
+    background: transparent;
+    font-size: 18px; }
   .students-lists .passed-span {
     color: #28b9b5; }
   .students-lists .failed-span {

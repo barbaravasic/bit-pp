@@ -179,8 +179,6 @@ function addMovie() {
     var programListElements = document.querySelectorAll("#program-info li");
     var programSelectOptions = document.querySelectorAll("#choose-program option");
 
-    // var movieValue = chooseMovieInput.value;
-    // var programValue = chooseProgramInput.value;
 
     var movie = unsortedMoviesList[chosenMovieIndex];
     var program = programList[chosenProgramIndex];

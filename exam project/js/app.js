@@ -21,9 +21,6 @@ function createSubject(subjName) {
     })
 }
 
-
-
-
 function createStudent() {
     var grade = gradeInput.value;
     var nameSurname = nameSurnameInput.value;
@@ -82,15 +79,19 @@ function updateCurrentMonth() {
     statDate.textContent = getCurrentMonth();
 }
 
-function resetList() {
-    var listItems = document.querySelectorAll("#passed-student-list li");
+function resetList(li) {
 
-    listItems.forEach(function(li){
-        li.textContent = "";
+    passedList.forEach(function(li) {
+        li.removeChild(spanLi);
+        li.removeChild(spanContainer);
     })
-
-
 }
+
+var xButton = document.querySelector(".btn-x");
+// function createXButton() {
+//     xButton.addEventListener("click", resetList);
+//    return xButton;
+// }
 
 updateCurrentMonth();
 createSubject();
@@ -103,4 +104,15 @@ addButton.addEventListener("click", function () {
     update();
 });
 
-// var xButton = document.querySelector
+// var studentsLists = document.querySelector(".students-lists");
+
+// studentsLists.addEventListener("click", function (event) {
+//     if (event.target.className === "btn-x") {
+//         var selectedLiElement = event.target.parentElement.parentElement;
+//         resetList(selectedLiElement);
+//     }
+// })
+
+
+
+

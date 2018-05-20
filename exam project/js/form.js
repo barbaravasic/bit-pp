@@ -12,16 +12,19 @@ function validateData(name, surname, grade) {
     if (surname === "InsertSurname") {
         var surnameValidation = document.querySelector(".nameValidation");
         surnameValidation.textContent = "You must insert both name and surname";
+        return ;
     }
 
     if (name1stLetter !== name1stLetter.toUpperCase() || surname1stLetter !== surname1stLetter.toUpperCase()) {
         var validateName = document.querySelector(".nameValidation");
         validateName.textContent = "Both name and surname must start with capitals!";
+        return ;
     }
 
     if (grade < 5 || grade > 10) {
         var validateGrade = document.querySelector(".gradeValidation");
         validateGrade.textContent = "A grade should be valid numerical value from 5 to 10!"
+        return ;
     }
 
 }

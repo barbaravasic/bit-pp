@@ -2,6 +2,6 @@ function Subject(name) {
     this.name = name;
 }
 
-Subject.prototype.getSubjectNAme = function() {
+Subject.prototype.getSubjectName = function() {
     return this.name;
 }

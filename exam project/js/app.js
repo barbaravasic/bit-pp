@@ -1,6 +1,7 @@
+var subjList = ["WEB", "JavaScript", "SPA"];
+var createdSubjectList = [];
 var studentList = [];
 var examList = [];
-var subjList = [];
 var passedList = [];
 var failedList = [];
 
@@ -10,52 +11,62 @@ var gradeInput = document.querySelector(".grade-input");
 var nameSurnameInput = document.querySelector(".name-input");
 
 function createSubject(subjName) {
-    var chosenSubj = chosenSubjectInput.value;
-    var createdSubject = new Subject(chosenSubj);
-    subjList.push(createdSubject);
+    subjList.forEach(function (subjName, index) {
+        var subjOption = document.createElement("option");
+        subjOption.value = index;
+        subjOption.textContent = subjName;
+        chosenSubjectInput.appendChild(subjOption);
+        var createdSubject = new Subject(subjName);
+        createdSubjectList.push(createdSubject);
+    })
 }
 
+
+
+
 function createStudent() {
-    var grade = gradeInput.value;  
+    var grade = gradeInput.value;
     var nameSurname = nameSurnameInput.value;
     var nameSurnameSplit = nameSurname.split(" ");
     var name = nameSurnameSplit[0];
     var surname = nameSurnameSplit[1];
-   
+
     surname = surname || "InsertSurname";
 
     validateData(name, surname, grade);
 
     var createdStudent = new Student(name, surname);
     studentList.push(createdStudent);
+
+    nameSurnameInput.value = "";
 }
 
 function createExam() {
-    
-    var createdSubj = {};
-    var createdStudent = {};
-    var grade = gradeInput.value;  
+    var subjIndex = document.querySelector("#choose-subject").value;
+    var chosenSubject = createdSubjectList[subjIndex];
 
-    studentList.forEach(function(student){
+    var createdStudent = {};
+    var grade = gradeInput.value;
+
+    studentList.forEach(function (student) {
         createdStudent = student;
     });
 
-    subjList.forEach(function(subj) {
-        createdSubj = subj;
-    })
-    var createdExam = new Exam(createdSubj, createdStudent, grade);
+    var createdExam = new Exam(chosenSubject, createdStudent, grade);
     examList.push(createdExam);
 
-    if(createdExam.hasPassed()){
+    if (createdExam.hasPassed()) {
         passedList.push(createdExam);
     } else {
         failedList.push(createdExam);
     }
+
+    gradeInput.value = "";
 }
 
 function update() {
     updateList(examList);
-    updateStatistics(passedList,failedList,examList);
+    updateStatistics(passedList, failedList, examList);
 }
 
 function getCurrentMonth() {
@@ -72,13 +83,13 @@ function updateCurrentMonth() {
 }
 
 updateCurrentMonth();
+createSubject();
 
 var addButton = document.querySelector("#add-button");
-addButton.addEventListener("click", function(){
+addButton.addEventListener("click", function () {
 
-        createSubject();
-        createStudent();
-        createExam();
-        update();
+    createStudent();
+    createExam();
+    update();
 });
 

@@ -42,7 +42,6 @@ function updateList(examList) {
     var spanGrade = document.createElement("span");
     spanGrade.classList.add("grade-span");
     var btnX = document.createElement("button");
-    // btnX.classList.add("btn-x");
 
     examList.forEach(function (exam) {
         if (exam.grade > 5) {

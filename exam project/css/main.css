@@ -9,7 +9,7 @@
 body {
   margin: 0;
   padding: 0; }
-  body h1, body h3, body h5 {
+  body h1, body h3, body h5, body p {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif; }
   body p {
@@ -37,7 +37,7 @@ header {
     letter-spacing: 3px;
     margin-bottom: 30px; }
   header .final-count {
-    width: 350px;
+    width: 40%;
     height: 40px;
     margin: 10px  auto; }
     header .final-count p {
@@ -48,7 +48,7 @@ header {
       padding-left: 10px; }
     header .final-count .count {
       float: right;
-      width: 65px; }
+      width: 20%; }
     header .final-count #passed-count,
     header .final-count #failed-count,
     header .final-count #failed-percent {
@@ -60,11 +60,11 @@ header {
 
 #form {
   border-bottom: 1px solid lightgray;
-  height: 130px; }
+  height: 150px; }
   #form form {
     margin: 20px auto;
     height: 60px;
-    width: 750px; }
+    width: 70%; }
     #form form select, #form form button, #form form .input-div {
       display: block;
       float: left;
@@ -104,7 +104,7 @@ header {
       width: 250px; }
 
 .students-lists {
-  width: 900px;
+  width: 80%;
   margin: 60px auto; }
   .students-lists #passed-list {
     float: left;
@@ -132,25 +132,15 @@ header {
   .students-lists .span-container {
     float: right; }
   .students-lists .grade-span {
-    float: left;
-    transition: transform 0.3s; }
+    float: left; }
   .students-lists .btn-x {
     font-size: 18px;
     background: none;
     border: none;
     cursor: pointer;
-    display: block;
-    line-height: 1;
-    display: none; }
+    line-height: 1; }
   .students-lists .btn-x:focus {
     outline: none; }
-  .students-lists .btn-x:active {
-    transform: translateY(10px); }
-  .students-lists li:hover .grade-span {
-    transform: translateX(-40px);
-    transform: translateX(-40px); }
-  .students-lists li:hover .btn-x {
-    display: block; }
   .students-lists li:first-child {
     border-top: 1px solid #e7e7e7; }
   .students-lists li:nth-child(even) {

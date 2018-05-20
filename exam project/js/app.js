@@ -80,18 +80,11 @@ function updateCurrentMonth() {
 }
 
 function resetList(li) {
-
-    passedList.forEach(function(li) {
-        li.removeChild(spanLi);
-        li.removeChild(spanContainer);
-    })
+    var ul = document.querySelector("#passed-student-list");
+    ul.removeChild(li);
 }
 
 var xButton = document.querySelector(".btn-x");
-// function createXButton() {
-//     xButton.addEventListener("click", resetList);
-//    return xButton;
-// }
 
 updateCurrentMonth();
 createSubject();
@@ -104,14 +97,14 @@ addButton.addEventListener("click", function () {
     update();
 });
 
-// var studentsLists = document.querySelector(".students-lists");
+var studentsLists = document.querySelector(".students-lists");
 
-// studentsLists.addEventListener("click", function (event) {
-//     if (event.target.className === "btn-x") {
-//         var liElement = event.target.parentElement.parentElement;
-//         resetList(liiElement);
-//     }
-// })
+studentsLists.addEventListener("click", function (event) {
+    if (event.target.className === "btn-x") {
+        var liElement = event.target.parentElement.parentElement;
+        resetList(liElement);
+    }
+})
 
 
 

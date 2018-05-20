@@ -1,5 +1,5 @@
 .students-lists {
-    width: 900px;
+    width: 80%;
     margin: 60px auto;
     #passed-list{
         float: left;
@@ -36,31 +36,19 @@
     }
     .grade-span {
         float: left;
-        transition: transform 0.3s;
     }
     .btn-x {
         font-size: 18px;
         background: none;
         border: none;
         cursor: pointer;
-        display: block;
         line-height: 1;
-        display: none;
     }
     
     .btn-x:focus {
          outline: none; 
     }
-    .btn-x:active { 
-        transform: translateY(10px);
-     }
-     li:hover .grade-span{
-         transform: translateX(-40px);
-        transform: translateX(-40px);
-     }
-    li:hover .btn-x {
-        display: block;
-     }
+
     li:first-child { 
         border-top: 1px solid #e7e7e7;
      }

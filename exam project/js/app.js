@@ -108,8 +108,8 @@ addButton.addEventListener("click", function () {
 
 // studentsLists.addEventListener("click", function (event) {
 //     if (event.target.className === "btn-x") {
-//         var selectedLiElement = event.target.parentElement.parentElement;
-//         resetList(selectedLiElement);
+//         var liElement = event.target.parentElement.parentElement;
+//         resetList(liiElement);
 //     }
 // })
 

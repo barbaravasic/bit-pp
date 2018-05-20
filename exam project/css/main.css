@@ -124,18 +124,37 @@ header {
     list-style-type: none;
     padding-left: 0;
     color: gray;
-    font-size: 18px; }
+    font-size: 18px;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 15px; }
   .students-lists .span-li {
     float: left; }
   .students-lists .span-container {
     float: right; }
   .students-lists .grade-span {
-    float: left; }
+    float: left;
+    transition: transform 0.3s; }
   .students-lists .btn-x {
-    float: right;
+    font-size: 18px;
+    background: none;
     border: none;
-    background: transparent;
-    font-size: 18px; }
+    cursor: pointer;
+    display: block;
+    line-height: 1;
+    display: none; }
+  .students-lists .btn-x:focus {
+    outline: none; }
+  .students-lists .btn-x:active {
+    transform: translateY(10px); }
+  .students-lists li:hover .grade-span {
+    transform: translateX(-40px);
+    transform: translateX(-40px); }
+  .students-lists li:hover .btn-x {
+    display: block; }
+  .students-lists li:first-child {
+    border-top: 1px solid #e7e7e7; }
+  .students-lists li:nth-child(even) {
+    background-color: #f7f7f7; }
   .students-lists .passed-span {
     color: #28b9b5; }
   .students-lists .failed-span {

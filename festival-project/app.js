@@ -166,8 +166,6 @@ function createProgram() {
 
 }
 
-
-
 function addMovie() {
 
     var chosenMovieIndex = chooseMovieInput.value;

@@ -21,53 +21,54 @@ const programInfo = document.querySelector("#program-info");
 const programList = [];
 const unsortedMoviesList = [];
 
-function Movie(title, duration, genre) {
-    this.title = title;
-    this.duration = duration;
-    this.genre = genre;
-}
 
-Movie.prototype.getData = function () {
-    const genreID1 = this.genre.slice(0, 1);
-    const genreID2 = this.genre.slice(this.genre.length - 1);
-    const genreID = (genreID1 + genreID2).toUpperCase();
-
-    const output = `${this.title}, ${this.duration}min, ${genreID}`;
-    return output;
-}
-
-function Program(date) {
-    this.date = new Date(date);
-    this.movieList = [];
-}
-
-Program.prototype.addMovie = function (movie) {
-    this.movieList.push(movie);
-}
-
-Program.prototype.moviesDuration = function () {
-    let moviesDuration = 0;
-    this.movieList.forEach(function (movie) {
-        moviesDuration += parseInt(movie.duration);
-    })
-    return moviesDuration;
-}
-
-
-Program.prototype.getInfo = function () {
-    let output = "";
-    if (this.movieList.length === 0) {
-        output = `${this.date}, program duration: TBA`;
-    } else {
-        output = `${this.date}, ${this.movieList.length} movies, ${this.moviesDuration()}`
+class Movie {
+    constructor(title, duration, genre) {
+        this.title = title;
+        this.duration = duration;
+        this.genre = genre;
     }
-    return output;
+
+    getData() {
+        const genreID1 = this.genre.slice(0, 1);
+        const genreID2 = this.genre.slice(this.genre.length - 1);
+        const genreID = (genreID1 + genreID2).toUpperCase();
+
+        const output = `${this.title}, ${this.duration}min, ${genreID}`;
+        return output;
+    }
 }
 
-function createMovie() {
+class Program {
+    constructor(date) {
+        this.date = new Date(date);
+        this.movieList = [];
+    }
+
+    addMovie(movie) {
+        this.movieList.push(movie);
+    }
+    moviesDuration() {
+        let moviesDuration = 0;
+        this.movieList.forEach(function (movie) {
+            moviesDuration += parseInt(movie.duration);
+        })
+        return moviesDuration;
+    }
+    getInfo() {
+        let output = "";
+        if (this.movieList.length === 0) {
+            output = `${this.date}, program duration: TBA`;
+        } else {
+            output = `${this.date}, ${this.movieList.length} movies, ${this.moviesDuration()}`
+        }
+        return output;
+    }
+}
+
+const createMovie = () => {
 
     const liItem = document.createElement("li");
-
 
     const title = titleInput.value;
     const duration = parseInt(durationInput.value);
@@ -100,10 +101,7 @@ function createMovie() {
     }
 
     let sumTotalLength = 0;
-    unsortedMoviesList.forEach(function (movie) {
-        sumTotalLength += movie.duration;
-
-    })
+    unsortedMoviesList.forEach(movie => { sumTotalLength += movie.duration; })
 
     totalLength.appendChild(pLength);
     pLength.textContent = sumTotalLength;
@@ -115,8 +113,7 @@ function createMovie() {
 }
 
 
-
-function createProgram() {
+const createProgram = () => {
     const date = new Date(dateInput.value);
 
     if (!dateInput.value) {
@@ -125,16 +122,13 @@ function createProgram() {
         return;
     }
 
-
-
     if (date.getTime() < Date.now()) {
         programValidation.textContent = "Invalid date!";
         programValidation.classList.add("validation");
         return;
     }
-    const hasProgramWithSameDate = programList.some(function (program) {
-        return date.getTime() === program.date.getTime();
-    })
+
+    const hasProgramWithSameDate = programList.some(program => date.getTime() === program.date.getTime())
 
     if (hasProgramWithSameDate) {
         programValidation.textContent = "Program for same date already exists";
@@ -166,7 +160,7 @@ function createProgram() {
 
 }
 
-function addMovie() {
+const addMovie = () => {
 
     const chosenMovieIndex = chooseMovieInput.value;
     const chosenProgramIndex = chooseProgramInput.value;
@@ -183,22 +177,19 @@ function addMovie() {
 
     program.addMovie(movie);
 
-    programListElements.forEach(function (li) {
+    programListElements.forEach(li => {
         if (li.textContent === oldProgramData) {
             li.textContent = program.getInfo();
         }
     });
 
-    programSelectOptions.forEach(function (option){
+    programSelectOptions.forEach(option => {
         if (option.textContent === oldProgramData) {
             option.textContent = program.getInfo();
         }
     });
 
 }
-
-
-
 
 const btnMovie = document.querySelector("#button-movie");
 const btnProgram = document.querySelector("#button-program");

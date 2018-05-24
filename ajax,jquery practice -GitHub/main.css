@@ -1,0 +1,27 @@
+.cf::after,
+.cf::before{
+    content: "";
+    display: table;
+}
+.cf::after{
+    clear: both;
+}
+#git-logo {
+    width: 100px;
+    float: left;
+}
+#search{
+    float: right;
+    margin-right: 15px;
+    margin-top: 30px;
+    width: 500px;
+    height: 30px;
+}
+div{
+    float: left;
+    margin: 5px;
+}
+
+div img{
+    width: 300px;
+}

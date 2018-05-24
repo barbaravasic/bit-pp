@@ -1,127 +1,126 @@
 "use strict";
 
 (function () {
+    class Person {
+        constructor(name, surname) {
 
-    function Person(name, surname) {
-
-        this.name = name;
-        this.surname = surname;
-    }
-
-    Person.prototype.getData = function () {
-        return `${this.name}  ${this.surname}`;
-    }
-
-    function Seat(number, category) {
-        number = number || Math.floor(Math.random() * (100 - 10) + 10);
-        category = category || "e";
-
-        this.number = number;
-        this.category = category.toUpperCase();
-    }
-
-    Seat.prototype.getData = function () {
-        return `${this.number} ${this.category}`;
-    }
-
-    function Passenger(person, seat) {
-        if (!(person instanceof Person)) {
-            console.log("Insert a valid person");
-            return;
-        } else {
-
-            this.person = person;
+            this.name = name;
+            this.surname = surname;
+        }
+        getData() {
+            return `${this.name}  ${this.surname}`;
         }
 
-        if (!(seat instanceof Seat)) {
-            console.log("Please insert a valid seat");
-            return;
-        } else {
-            this.seat = seat;
+    }
+
+    class Seat {
+        constructor(number, category) {
+            number = number || Math.floor(Math.random() * (100 - 10) + 10);
+            category = category || "e";
+
+            this.number = number;
+            this.category = category.toUpperCase();
         }
-    }
-
-    Passenger.prototype.changeSeatCategoryOutput = function () {
-        if (this.seat.category === "B") {
-            return this.seat.category = "business";
-        } else {
-            return this.seat.category = "economy";
+        getData() {
+            return `${this.number} ${this.category}`;
         }
+
     }
 
-    Passenger.prototype.getData = function () {
-        return `${this.seat.number}, ${this.changeSeatCategoryOutput()}, ${this.person.getData()}`;
-    }
+    class Passenger extends Person {
+        constructor(name, surname, seat) {
+            super(name, surname);
 
-    function Flight(relation, date) {
+        }
 
-        this.relation = relation;
-        const inputDate = new Date(date);
-        this.date = `${inputDate.getMonth() + 1}. ${inputDate.getDate()}. ${inputDate.getFullYear()}`;
-        this.listOfPassengers = [];
-        
-    }
-
-    Flight.prototype.addPassenger = function (passenger) {
-
-        try {
-            for (let i = 0; i < this.listOfPassengers.length; i++) {
-                if (this.listOfPassengers[i].seat.number === passenger.seat.number)
-
-                    throw `${passenger.person.name}'s seat number is already taken`
+        changeSeatCategoryOutput() {
+            if (this.seat.category === "B") {
+                return this.seat.category = "business";
+            } else {
+                return this.seat.category = "economy";
             }
-        } catch (err) {
-            console.log(err);
-            passenger.seat.number = Math.floor(Math.random() * (100 - 10) + 10);
+        }
+        getData() {
+            return `${this.seat.number}, ${this.changeSeatCategoryOutput()}, ${this.person.getData()}`;
         }
 
-        try {
-            for (let i = 0; i < this.listOfPassengers.length; i++) {
-                if (passenger.person.getData() === this.listOfPassengers[i].person.getData())
-                    throw "There is already a person with that name on the list"
+    }
+
+    class Flight {
+
+        constructor(relation, date) {
+
+            this.relation = relation;
+            const inputDate = new Date(date);
+            this.date = `${inputDate.getMonth() + 1}. ${inputDate.getDate()}. ${inputDate.getFullYear()}`;
+            this.listOfPassengers = [];
+
+        }
+
+        addPassenger(passenger) {
+
+            try {
+                for (let i = 0; i < this.listOfPassengers.length; i++) {
+                    if (this.listOfPassengers[i].seat.number === passenger.seat.number) {
+
+
+                        throw `${passenger.person.name}'s seat number is already taken`
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+                passenger.seat.number = Math.floor(Math.random() * (100 - 10) + 10);
             }
-        } catch (err) {
 
-            console.log(err);
-            this.listOfPassengers[i] = passenger;
-        }
+            try {
+                for (let i = 0; i < this.listOfPassengers.length; i++) {
+                    if (passenger.person.getData() === this.listOfPassengers[i].person.getData())
+                        throw "There is already a person with that name on the list"
+                }
+            } catch (err) {
 
-        try {
-            this.listOfPassengers.push(passenger);
-            if (this.listOfPassengers.length > 100)
-
-                throw "There can be only 100 passengers"
-        } catch (err) {
-            console.log(err);
-            this.listOfPassengers.pop();
-        }
-
-    }
-
-    Flight.prototype.totalInBusiness = function () {
-
-        let counter = 0;
-        this.listOfPassengers.forEach(function (passenger) {
-            if (passenger.seat.category === "business") {
-                counter++;
+                console.log(err);
+                this.listOfPassengers[i] = passenger;
             }
-        })
-        return counter;
+
+            try {
+                this.listOfPassengers.push(passenger);
+                if (this.listOfPassengers.length > 100)
+
+                    throw "There can be only 100 passengers"
+            } catch (err) {
+                console.log(err);
+                this.listOfPassengers.pop();
+            }
+        }
+
+        totalInBusiness() {
+
+            let counter = 0;
+            this.listOfPassengers.forEach(function (passenger) {
+                if (passenger.seat.category === "business") {
+                    counter++;
+                }
+            })
+            return counter;
+        }
+
+        getData() {
+            let output = "";
+            let passOutput = "";
+            this.listOfPassengers.forEach(function (passenger) {
+                passOutput += `      ${passenger.getData()} 
+                                `;
+
+            })
+            output = `${this.date}, ${this.relation}. In business category: ${this.totalInBusiness()}
+                            `;
+
+            return output + passOutput;
+        }
+
     }
 
-    Flight.prototype.getData = function () {
-        let output = "";
-        let passOutput = "";
-        this.listOfPassengers.forEach(function (passenger) {
-            passOutput += `      ${passenger.getData()} 
-            `;
-
-        })
-        output =`${this.date}, ${this.relation}. In business category: ${this.totalInBusiness()}
-        `;
-
-        return output + passOutput;
-    }
 
 
     function Airport(name) {

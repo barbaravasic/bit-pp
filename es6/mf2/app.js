@@ -5,21 +5,24 @@ const dataModule = (function () {
         movies: []
     }
 
-
-    function Movie(title, length, genre) {
-        this.title = title;
-        this.length = parseInt(length);
-        this.genre = genre;
+    class Movie {
+        constructor(title, length, genre) {
+           this.title = title;
+           this.length = parseInt(length);
+           this.genre = genre;
 
     }
 
-    Movie.prototype.getMovieInfo = function () {
-        return this.title + ", " + this.genre;
+    getMovieInfo() {
+        return `${this.title}, ${this.genre}`;
     }
+
+    }
+
 
 
     //validation
-    function isValid(title, length, genre) {
+    const isValid = ({title, length, genre}) => {
 
         if (!title || !length || !genre) {
 
@@ -39,14 +42,14 @@ const dataModule = (function () {
 
 
     //createMovie
-    function createMovie(title, length, genre) {
+    const createMovie = ({title, length, genre}) => {
         const createdMovie = new Movie(title, length, genre);
         store.movies.push(createdMovie);
         return createdMovie;
     }
 
     //movieLength
-    function  calculateMovieLength() {
+    const calculateMovieLength = () => {
         let totalMovieLength = 0;
         store.movies.forEach(function (movie) {
             totalMovieLength += movie.length;
@@ -68,7 +71,8 @@ const dataModule = (function () {
 
 
 //UI
-const uiModule = (function () {
+const uiModule = (function() {
+
     const titleInput = document.querySelector("#title");
     const genreInput = document.querySelector("#genre");
     const lengthInput = document.querySelector("#length");
@@ -86,18 +90,18 @@ const uiModule = (function () {
         }
     }
 
-    const clearInput = function () {
+    const clearInput = () => {
         titleInput.value = "";
         genreInput.value = "";
         lengthInput.value = "";
     }
 
-    const displayError = function () {
+    const displayError = () => {
         const validation = document.querySelector(".validation");
         validation.textContent = "Invalid input!";
     }
 
-    const displayMovie = function (movie) {
+    const displayMovie = movie => {
         const movieListUl = document.querySelector("#movie-list");
         const li = document.createElement("li");
         li.textContent = movie.getMovieInfo();
@@ -105,7 +109,7 @@ const uiModule = (function () {
 
     }
 
-    const displayMovieLength = function (totalLength) {
+    const displayMovieLength = totalLength => {
         const totalLengthDiv = document.querySelector("#total-length");
         totalLengthDiv.textContent = totalLength;
 
@@ -118,6 +122,7 @@ const uiModule = (function () {
         clearInput,
         displayMovieLength
     }
+
 })();
 
 
@@ -130,13 +135,14 @@ const main = (function (data, ui) {
         
         const collectedData = ui.collectedData();
        
-        const isValid = data.isValid(collectedData.title, collectedData.length, collectedData.genre);
+        const isValid = data.isValid(collectedData);
+        
         if (!isValid) {
             ui.displayError(isValid);
             return
         }
 
-        const createdMovie = data.createMovie(collectedData.title, collectedData.length, collectedData.genre);
+        const createdMovie = data.createMovie(collectedData);
         ui.displayMovie(createdMovie);
         ui.clearInput();
         ui.displayMovieLength(data.calculateMovieLength());

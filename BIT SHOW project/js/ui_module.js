@@ -12,20 +12,33 @@ const uiModule = (function () {
         list.forEach(show => {
 
             const $card = $(`
-                <div class='col-12 col-md-6 col-lg-4'>
-                    <img src='${show.showPoster}'>
+                <div class='col-12 col-md-6 col-lg-4 show'>
+                    <img src='${show.showPoster}' id='${show.id}'>
                     <p>${show.name}</p>
                 </div>
             `);
-            $container.append($row).append($card);
+            $container.append($row)
+            $row.append($card);
         })
     }
+   
+    
 
     function fail(){
         alert(`Display failed`)
     }
     return {
         displayTopShow,
-        fail
+        fail,
+        showInfo(){
+            const $body = $("body");
+            $body.on("click", function(event){
+                const id = event.target;
+                localStorage.setItem("id",id.id);
+                location.href = "show_info.html";
+                
+                
+            });
+        }
     }
 })()

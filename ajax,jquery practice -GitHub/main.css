@@ -17,9 +17,16 @@
     width: 500px;
     height: 30px;
 }
-div{
+div {
     float: left;
     margin: 5px;
+}
+.img{
+    float: left;
+    margin: 5px;
+}
+.search-div{
+    float: right;
 }
 
 div img{

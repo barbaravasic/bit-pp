@@ -1,7 +1,7 @@
 $(function () {
     const search = $("#search");
 
-    $(document).on("keydown", function (event) {
+    $("#search").on("keydown", function (event) {
         if (event.keyCode == 13) {
             event.preventDefault();
             const data = search.val();
@@ -25,12 +25,19 @@ $(function () {
 
                 }
                 );
-
-
             })
 
             xmlHttp.fail(function (jqXHR, textStatus) {
-                alert(`Request failed  ${textStatus}`);
+                if(jqXHR.status >=400 && jqXHR.status < 500) {
+                const response = JSON.parse(jqXHR.responseText);
+                alert(`Wrong input! ${response.message}` );
+                }else {
+                    if(jqXHR >= 500) {
+                        alert(`Ouups, my mistake!`)
+                    }
+                }
+
+
             })
         }
     });

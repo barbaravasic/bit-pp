@@ -1,15 +1,15 @@
-const controller = (function(ui, data){
+const controller = (function (ui, data) {
   return {
-      init(){
-          data.fetchShow(ui.displayTop50, ui.failed);
+    init() {
+      data.fetchShow(ui.displayTop50, ui.failed);
+      $(`body`).on("click", event => {
+        ui.setLocalStorage(event.target.id);
+        // ui.redirectionToShowInfo();
+        const id = localStorage.getItem("id");
+        const clickedShow = data.chosenShow(id);
+        data.fetchSeasons(ui.displayOnShowInfo, ui.failed, clickedShow);
+        
 
-          $(document).on("click", event =>{
-              const clickedShow = data.chosenShow(event.target.id);
-              console.log(event.target);
-              ui.setLocalStorage(event.target.id);
-              ui.redirectionToShowInfo();
-              data.fetchSeasons(ui.displayOnShowInfo, ui.failed, clickedShow)
-          })
-      }
+    }
   }
 })(uiModule, dataModule);

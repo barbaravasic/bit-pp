@@ -1,13 +1,15 @@
 const controller = (function(ui, data){
-    function init(){
-       
-        data.fetchShow(ui.displayTopShow, ui.fail);
-        ui.showInfo();
+  return {
+      init(){
+          data.fetchShow(ui.displayTop50, ui.failed);
 
-    }
-    return{
-        init
-    }
-
-
+          $(document).on("click", event =>{
+              const clickedShow = data.chosenShow(event.target.id);
+              console.log(event.target);
+              ui.setLocalStorage(event.target.id);
+              ui.redirectionToShowInfo();
+              data.fetchSeasons(ui.displayOnShowInfo, ui.failed, clickedShow)
+          })
+      }
+  }
 })(uiModule, dataModule);

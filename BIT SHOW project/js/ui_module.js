@@ -1,44 +1,50 @@
-
-
 const uiModule = (function () {
-
-
-    const $search = $(".search-box");
-    const $searchValue = $search.val();
-    const $container = $(".main")
-
-    function displayTopShow(list) {
-        const $row = $("<div>").addClass("row");
-        list.forEach(show => {
-
-            const $card = $(`
-                <div class='col-12 col-md-6 col-lg-4 show'>
-                    <img src='${show.showPoster}' id='${show.id}'>
-                    <p>${show.name}</p>
-                </div>
-            `);
-            $container.append($row)
-            $row.append($card);
-        })
-    }
-   
-    
-
-    function fail(){
-        alert(`Display failed`)
-    }
     return {
-        displayTopShow,
-        fail,
-        showInfo(){
-            const $body = $("body");
-            $body.on("click", function(event){
-                const id = event.target;
-                localStorage.setItem("id",id.id);
-                location.href = "show_info.html";
-                
-                
-            });
+
+        searchInput: $(".search-box"),
+
+        displayTop50(list) {
+            const $mainContainer = $(`.main`);
+            const $row = $(`<div class='row'>`);
+
+            list.forEach(show => {
+                const $card = $(`
+                <div class='col-12 col-md-6 col-lg-4 show' id='${show.id}'>
+                    <img src='${show.posterUrl}' id='${show.id}'>
+                    <h3 class='show-title' id='${show.id}'>${show.name}</h3>
+                </div>
+                `)
+                $mainContainer.append($row);
+                $row.append($card);
+            })
+        },
+
+        failed() {
+            alert(`Somthing went wrong`);
+        },
+
+        setLocalStorage(id) {
+            localStorage.setItem("id", id);
+        },
+
+        redirectionToShowInfo() {
+            location.href = "show_info.html";
+        },
+
+        displayOnShowInfo(chosenShow){
+            const $mainInfo = $(".showInfo-main");
+            const infoDisplay = $(`
+            <div class='row'>
+                <div class = 'col-12 col-md-6'>
+                    <img src= '${chosenShow.posterUrl}'>
+                </div>
+            </div>
+            `)
+
+            $mainInfo.append(infoDisplay);
+            
         }
     }
+
+
 })()

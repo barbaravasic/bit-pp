@@ -33,9 +33,8 @@ const uiModule = (function () {
         //     location.href = "show_info.html";
         // },
 
-        displayOnShowInfo(chosenShow, listOfSeasons) {
+        displayOnShowInfo(chosenShow, listOfSeasons, listOfActors) {
             const $mainContainer = $(`.main`).empty();
-            const $row = $(`<div class='row'>`);
             const $ul = $(`<ul>`);
             const $chosenShowTitle = $(`<h4>`);
             listOfSeasons.forEach(season => {
@@ -46,15 +45,21 @@ const uiModule = (function () {
                 $ul.append($li);
             })
             const $infoDisplay = $(`
+            <div class='row'>
                 <div class='col-12 col-md-6'>
                     <img src='${chosenShow.posterUrl}' id='${chosenShow.id}'>
                 </div>
-
+                <div class='col-12 col-md-6'>
+                    ${$ul.html()}
+                </div>
+            </div>
             `);
-            $infoDisplay.append($ul);
-            $row.append($infoDisplay);
-            $mainContainer.append($row);
-        }
+           
+            $mainContainer.append($infoDisplay);
+        },
+        // displayCast(chosenShow, listOfActors){
+
+        // }
     }
 
 

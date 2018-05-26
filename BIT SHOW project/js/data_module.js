@@ -24,8 +24,8 @@ const dataModule = (function () {
             return `${this.startDate} - ${this.endDate}`;
         }
     }
-    class Person{
-        constructor(name){
+    class Person {
+        constructor(name) {
             this.name = name;
         }
     }
@@ -35,13 +35,13 @@ const dataModule = (function () {
             this.person = person;
         }
     }
-    
+
 
     return {
         listOfAllShows: [],
         top50Shows: [],
         listOfSeasons: [],
-        listOfActors : [],
+        listOfActors: [],
 
         fetchShow(success, failed) {
             const request = $.ajax({
@@ -73,37 +73,53 @@ const dataModule = (function () {
             return clickedShow;
         },
 
-        fetchSeasons(success, fail, clickedShow) {
-            const request = $.ajax({
-                url: `http://api.tvmaze.com/shows/${clickedShow.id}/seasons`,
-                method: "GET"
-            }).done(response => {
-                response.map(season => {
+        fetchSeasonsAndCast(success, fail, clickedShow) {
+
+            $.when(
+                $.ajax(`http://api.tvmaze.com/shows/${clickedShow.id}/seasons`),
+
+                $.ajax(`http://api.tvmaze.com/shows/${clickedShow.id}/cast`)
+            ).then(function (responseSeason, responseActors) {
+                console.log(responseSeason)
+                responseSeason.map(season => {
                     const createdSeason = new Season(season.premiereDate, season.endDate, response.length);
                     this.listOfSeasons.push(createdSeason);
-                })
-
-                success(clickedShow, this.listOfSeasons);
-            }).fail((jq, textStatus) => {
-                fail();
-            })
-        },
-        fetchCast(success,fail,clickedShow) {
-            const request = $.ajax({
-                url: `http://api.tvmaze.com/shows/${clickedShow.id}/cast`,
-                method: "GET"
-            }).done(response => {
-                response.map(actor => {
+                });
+                responseActors.map(actor => {
                     const createdPerson = new Person(actor.person.name)
-                    const createdActor = new Actor (createdPerson);
+                    const createdActor = new Actor(createdPerson);
                     this.listOfActors.push(createdActor);
                 })
-
-                success(clickedShow, this.listOfActors);
-            }).fail((jq, textStatus) => {
-                fail();
+                success(clickedShow, this.listOfSeasons, this.listOfActors);
             })
-        }
+            // const request = $.ajax({
+            //     url: `http://api.tvmaze.com/shows/${clickedShow.id}/seasons`,
+            //     method: "GET"
+            // }).done(response => {
+            //     response.map(season => {
+            //         const createdSeason = new Season(season.premiereDate, season.endDate, response.length);
+            //         this.listOfSeasons.push(createdSeason);
+            //     })
+
+            //     success(clickedShow, this.listOfSeasons);
+            // }).fail((jq, textStatus) => {
+            //     fail();
+            // });
+
+            // const castRequest = $.ajax({
+            //     url: `http://api.tvmaze.com/shows/${clickedShow.id}/cast`,
+            //     method: "GET"
+            // }).done(response => {
+            //     response.map(actor => {
+            //         const createdPerson = new Person(actor.person.name)
+            //         const createdActor = new Actor(createdPerson);
+            //         this.listOfActors.push(createdActor);
+            //     })
+            //     // success(clickedShow, this.listOfActors);
+            // }).fail((jq, textStatus) => {
+            //     fail();
+            // })
+        },
     }
 
 })()

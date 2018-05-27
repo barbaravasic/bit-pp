@@ -12,7 +12,6 @@ const controller = (function (ui, data) {
   }
 
   function searchHandler(event) {
-
       const searchValue = ui.$searchInput.val();
       data.findSearchShows(searchValue, ui.displaySearchList);
   }
@@ -22,8 +21,6 @@ const controller = (function (ui, data) {
       data.fetchShow(ui.displayTop50, ui.failed);
       $(`body`).on("click", showInfoHandler);
       $(`.search-box`).on("keyup", searchHandler);
- 
-
     },
   }
 })(uiModule, dataModule);

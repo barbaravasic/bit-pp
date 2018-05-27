@@ -35,14 +35,14 @@ const uiModule = (function () {
 
         displayOnShowInfo(chosenShow, listOfSeasons, listOfActors) {
             const $mainContainer = $(`.main`).empty();
+            const $chosenShowTitle = $(`<h3>${chosenShow.name}</h3>`)
             const $ulSeasons = $(`<ul>`);
-            const $chosenShowTitle = $(`<h4>`);
+            const $seasonsTitle = $(`<h4 class='showTitle'>`);
             const $ulACtors = $(`<ul>`);
             listOfSeasons.forEach(season => {
-                $chosenShowTitle.text(`Seasons(${season.numOfSeasons})`);
+            //  $seasonsTitle.text(`Seasons(${season.numOfSeasons})`);
                 const $li = $(`<li>`);
                 $li.text(`${season.startDate} - ${season.endDate}`);
-                $ulSeasons.prepend($chosenShowTitle);
                 $ulSeasons.append($li);
             })
             listOfActors.forEach(actor => {
@@ -51,13 +51,14 @@ const uiModule = (function () {
                 $ulACtors.append($liActors);
             })
             const $infoDisplay = $(`
-            <div class='row'>
+            <div class='row poster-and-lists'>
                 <div class='col-12 col-md-6'>
-                    <img src='${chosenShow.posterUrl}' id='${chosenShow.id}'>
+                    <img src='${chosenShow.posterUrl}' id='${chosenShow.id}' class='info-img'>
                 </div>
                 <div class='col-12 col-md-6'>
                     <div class='row'> 
                         <div class='col-12'>
+                        <h4>Seasons (${listOfSeasons.length})</h4>
                             <ul class='seasons'>
                                 ${$ulSeasons.html()}
                             </ul>
@@ -65,7 +66,7 @@ const uiModule = (function () {
                     </div>
                     <div class='row'> 
                         <div class='col-12'>
-                            <h4>Cast</h4>
+                            <h4 class='cast'>Cast</h4>
                             <ul class='actors'>
                                 ${$ulACtors.html()}
                             </ul>
@@ -73,13 +74,13 @@ const uiModule = (function () {
                     </div>
                 </div>
             </div>
-            <div class='row'>
+            <div class='row description'>
                 <div class'col-12'>
                     ${chosenShow.description}
                 </div>
             </div>
             `);
-
+            $mainContainer.append($chosenShowTitle);
             $mainContainer.append($infoDisplay);
         },
 

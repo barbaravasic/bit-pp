@@ -51,7 +51,7 @@ const dataModule = (function () {
                 method: "GET"
             }).done((response) => {
                 response.map(show => {
-                    const createdShow = new Show(show.name, show.id, show.image.medium, show.summary, show.rating);
+                    const createdShow = new Show(show.name, show.id, show.image.original, show.summary, show.rating);
                     this.listOfAllShows.push(createdShow);
                 })
                 this.listOfAllShows.sort((a, b) => {
@@ -112,9 +112,7 @@ const dataModule = (function () {
                     listOfSearchedSuggestions.push(show);
                 }          
             })
-            console.log(completeList)
             const slicedList = listOfSearchedSuggestions.slice(0,10);
-            console.log(slicedList)
             showSearched(slicedList);
         }
     }

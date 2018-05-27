@@ -1,0 +1,23 @@
+.navbar {
+    a:not([href]):not([tabindex]){
+        color:white;
+    }
+    .search-box{
+        display: block;
+        width: 100%;
+       
+    }
+    .search-dropdown{
+       margin-right: .5rem;
+       position: absolute;
+       background-color: white;
+       top: 50px;
+       z-index: 99;
+       border: 1px solid gray;
+       display: none;
+    }
+    .dropdown-ul{
+        padding-left:0;
+        list-style-type: none;
+    }
+}

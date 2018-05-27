@@ -1,0 +1,18 @@
+.navbar a:not([href]):not([tabindex]) {
+  color: white; }
+.navbar .search-box {
+  display: block;
+  width: 100%; }
+.navbar .search-dropdown {
+  margin-right: .5rem;
+  position: absolute;
+  background-color: white;
+  top: 50px;
+  z-index: 99;
+  border: 1px solid gray;
+  display: none; }
+.navbar .dropdown-ul {
+  padding-left: 0;
+  list-style-type: none; }
+
+/*# sourceMappingURL=main.css.map */

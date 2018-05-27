@@ -1,7 +1,7 @@
 const uiModule = (function () {
     return {
 
-        searchInput: $(`.search-box`),
+        $searchInput: $(`.search-box`),
 
         displayTop50(list) {
             const $mainContainer = $(`.main`);
@@ -82,6 +82,27 @@ const uiModule = (function () {
 
             $mainContainer.append($infoDisplay);
         },
+
+        displaySearchList(listToDisplay) {
+            const $searchDiv = $(`.search-dropdown`);
+            $searchDiv.css("display", "block")
+            const $ulSearch = $(`.dropdown-ul`);
+            $ulSearch.empty();
+            listToDisplay.forEach(show => {
+                const $liSearch = $(`
+                    <li >
+                        <a href='#' id='${show.id}'> ${show.name}</a>
+                    </li>
+                `);
+
+                $ulSearch.append($liSearch);
+            })
+
+        },
+        reset() {
+            $(`.search-box`).val("");
+            $(`.dropdown-ul`).empty();
+        }
     }
 
 

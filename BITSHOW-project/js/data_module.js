@@ -41,8 +41,9 @@ const dataModule = (function () {
         listOfAllShows: [],
         top50Shows: [],
         listOfActors: [],
-        listOfSeasons:[],
-       
+        listOfSeasons: [],
+      
+
 
         fetchShow(success, failed) {
             const request = $.ajax({
@@ -96,11 +97,26 @@ const dataModule = (function () {
                     const createdActor = new Actor(createdPerson);
                     this.listOfActors.push(createdActor);
                 })
-                success(clickedShow,this.listOfSeasons, this.listOfActors);
+                success(clickedShow, this.listOfSeasons, this.listOfActors);
             }).fail((jq, textStatus) => {
                 fail();
             })
         },
+
+        findSearchShows(searchValue, showSearched) {
+            const completeList = this.listOfAllShows;
+            const listOfSearchedSuggestions= [];
+            completeList.forEach(show => {
+                const lowercasedName = show.name.toLowerCase();
+                if (lowercasedName.includes(searchValue)) {
+                    listOfSearchedSuggestions.push(show);
+                }          
+            })
+            console.log(completeList)
+            const slicedList = listOfSearchedSuggestions.slice(0,10);
+            console.log(slicedList)
+            showSearched(slicedList);
+        }
     }
 
 })()

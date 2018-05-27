@@ -40,7 +40,6 @@ const uiModule = (function () {
             const $seasonsTitle = $(`<h4 class='showTitle'>`);
             const $ulACtors = $(`<ul>`);
             listOfSeasons.forEach(season => {
-            //  $seasonsTitle.text(`Seasons(${season.numOfSeasons})`);
                 const $li = $(`<li>`);
                 $li.text(`${season.startDate} - ${season.endDate}`);
                 $ulSeasons.append($li);
@@ -103,7 +102,7 @@ const uiModule = (function () {
         reset() {
             $(`.search-box`).val("");
             $(`.dropdown-ul`).empty();
-        }
+        },
     }
 
 

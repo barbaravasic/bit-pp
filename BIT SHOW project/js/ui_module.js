@@ -1,7 +1,7 @@
 const uiModule = (function () {
     return {
-    
-            searchInput: $(`.search-box`),
+
+        searchInput: $(`.search-box`),
 
         displayTop50(list) {
             const $mainContainer = $(`.main`);
@@ -35,14 +35,20 @@ const uiModule = (function () {
 
         displayOnShowInfo(chosenShow, listOfSeasons, listOfActors) {
             const $mainContainer = $(`.main`).empty();
-            const $ul = $(`<ul>`);
+            const $ulSeasons = $(`<ul>`);
             const $chosenShowTitle = $(`<h4>`);
+            const $ulACtors = $(`<ul>`);
             listOfSeasons.forEach(season => {
                 $chosenShowTitle.text(`Seasons(${season.numOfSeasons})`);
                 const $li = $(`<li>`);
                 $li.text(`${season.startDate} - ${season.endDate}`);
-                $ul.prepend($chosenShowTitle);
-                $ul.append($li);
+                $ulSeasons.prepend($chosenShowTitle);
+                $ulSeasons.append($li);
+            })
+            listOfActors.forEach(actor => {
+                const $liActors = $(`<li>`);
+                $liActors.text(`${actor.person.name}`);
+                $ulACtors.append($liActors);
             })
             const $infoDisplay = $(`
             <div class='row'>
@@ -50,16 +56,32 @@ const uiModule = (function () {
                     <img src='${chosenShow.posterUrl}' id='${chosenShow.id}'>
                 </div>
                 <div class='col-12 col-md-6'>
-                    ${$ul.html()}
+                    <div class='row'> 
+                        <div class='col-12'>
+                            <ul class='seasons'>
+                                ${$ulSeasons.html()}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='row'> 
+                        <div class='col-12'>
+                            <h4>Cast</h4>
+                            <ul class='actors'>
+                                ${$ulACtors.html()}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class'col-12'>
+                    ${chosenShow.description}
                 </div>
             </div>
             `);
-           
+
             $mainContainer.append($infoDisplay);
         },
-        // displayCast(chosenShow, listOfActors){
-
-        // }
     }
 
 

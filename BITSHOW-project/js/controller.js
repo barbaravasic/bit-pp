@@ -5,21 +5,21 @@ const controller = (function (ui, data) {
       event.preventDefault();
       data.setLocalStorage(event.target.id);
       window.open('./show_info.html');
-      const id = localStorage.getItem("id");
-      data.fetchSeasonsAndCast(id, ui.displayOnShowInfo, ui.failed);
     }
   }
-
   function searchHandler(event) {
-      const searchValue = ui.$searchInput.val();
-      data.fetchSearchShows(searchValue, ui.displaySearchList, ui.fail);
+    const searchValue = ui.$searchInput.val();
+    data.fetchSearchShows(searchValue, ui.displaySearchList, ui.fail);
   }
 
+  
   return {
     init() {
       data.fetchShow(ui.displayTop50, ui.failed);
       $(`body`).on("click", showInfoHandler);
       $(`.search-box`).on("keyup", searchHandler);
+      const id = localStorage.getItem("id");
+      data.fetchSeasonsAndCast(id, ui.displayOnShowInfo, ui.failed);
     }
   }
 })(uiModule, dataModule);

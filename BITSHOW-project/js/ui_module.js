@@ -25,14 +25,9 @@ const uiModule = (function () {
             alert(`Something went wrong`);
         },
 
-        
-
-        // redirectionToShowInfo() {
-        //     location.href = "show_info.html";
-        // },
-
         displayOnShowInfo(chosenShow, listOfSeasons, listOfActors) {
-            const $mainContainer = $(`.main`).empty();
+            // const $mainContainer = $(`#show-info-main`).empty();
+            const $mainContainer = $(`#show-info-main`)
             const $chosenShowTitle = $(`<h3>${chosenShow.name}</h3>`)
             const $ulSeasons = $(`<ul>`);
             const $seasonsTitle = $(`<h4 class='showTitle'>`);

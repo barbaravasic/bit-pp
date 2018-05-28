@@ -67,40 +67,12 @@ const dataModule = (function () {
             localStorage.setItem("id", id);
             return id;
         },
-
-        chosenShow(id) {
-            const createdShow = {};
-            
-            const request = $.ajax({
-                url: `http://api.tvmaze.com/shows`,
-                method: "GET"
-            }).done((response) =>{
-                const listOfAllShows = [];
-                response.map(show => {
-                    const createdShow = new Show(show.name, show.id, show.image.original, show.summary, show.rating);
-                    listOfAllShows.push(createdShow);
-
-                    listOfAllShows.forEach(show =>{
-                        if(show.id === parseInt(id)){
-                            createdShow = show;
-                        }
-                    })
-                })
-            })
-            
-            const clickedShow = this.listOfAllShows.find(show => {
-                return parseInt(evId) === show.id;
-            })
-            return clickedShow;
-        }, 
-
-        fetchSeasonsAndCast(clickedShow, success, fail) {
+        fetchSeasonsAndCast(id, success, fail) {
 
             const request = $.ajax({
-                url: `http://api.tvmaze.com/shows/${clickedShow.id}?embed[]=seasons&embed[]=cast`,
+                url: `http://api.tvmaze.com/shows/${id}?embed[]=seasons&embed[]=cast`,
                 method: "GET"
             }).done(response => {
-                console.log(response)
                 const listOfActors = [];
                 const listOfSeasons = [];
                 const seasonsArray = response._embedded.seasons;
@@ -115,6 +87,7 @@ const dataModule = (function () {
                     const createdActor = new Actor(createdPerson);
                     listOfActors.push(createdActor);
                 })
+                const clickedShow = new Show(response.name, response.id, response.image.original, response.summary, response.rating.average)
                 success(clickedShow, listOfSeasons, listOfActors);
             }).fail((jq, textStatus) => {
                 fail();

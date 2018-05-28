@@ -4,10 +4,9 @@ const controller = (function (ui, data) {
     if (event.target.parentElement.tagName === "A" || event.target.tagName === "A") {
       event.preventDefault();
       data.setLocalStorage(event.target.id);
-      // window.open('./show_info.html');
+      window.open('./show_info.html');
       const id = localStorage.getItem("id");
-      const clickedShow = data.chosenShow(id);
-      data.fetchSeasonsAndCast(clickedShow, ui.displayOnShowInfo, ui.failed);
+      data.fetchSeasonsAndCast(id, ui.displayOnShowInfo, ui.failed);
     }
   }
 
@@ -21,8 +20,6 @@ const controller = (function (ui, data) {
       data.fetchShow(ui.displayTop50, ui.failed);
       $(`body`).on("click", showInfoHandler);
       $(`.search-box`).on("keyup", searchHandler);
-    },
-
-    
+    }
   }
 })(uiModule, dataModule);

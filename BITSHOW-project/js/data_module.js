@@ -1,5 +1,6 @@
 const dataModule = (function () {
 
+
     class Show {
         constructor(name, id, posterUrl, description, rating) {
             this.name = name;
@@ -30,90 +31,121 @@ const dataModule = (function () {
         }
     }
 
-    class Actor {
-        constructor(person) {
-            this.person = person;
+    class Actor extends Person {
+        constructor(name) {
+            super(name);
         }
     }
 
 
     return {
-        listOfAllShows: [],
-        top50Shows: [],
-        listOfActors: [],
-        listOfSeasons: [],
-      
-
-
         fetchShow(success, failed) {
             const request = $.ajax({
                 url: `http://api.tvmaze.com/shows`,
                 method: "GET"
             }).done((response) => {
+                const listOfAllShows = [];
                 response.map(show => {
                     const createdShow = new Show(show.name, show.id, show.image.original, show.summary, show.rating);
-                    this.listOfAllShows.push(createdShow);
+                    listOfAllShows.push(createdShow);
                 })
-                this.listOfAllShows.sort((a, b) => {
+                listOfAllShows.sort((a, b) => {
                     a = a.rating.average;
                     b = b.rating.average;
                     return b - a;
                 })
-                this.top50Shows = this.listOfAllShows.slice(0, 50);
-                success(this.top50Shows);
+               
+                const top50Shows = listOfAllShows.slice(0, 50);
+                success(top50Shows);
 
 
             }).fail((jq, textStatus) => {
                 failed();
             })
         },
+        setLocalStorage(id) {
+            localStorage.setItem("id", id);
+            return id;
+        },
 
-        chosenShow(evId) {
+        chosenShow(id) {
+            const createdShow = {};
+            
+            const request = $.ajax({
+                url: `http://api.tvmaze.com/shows`,
+                method: "GET"
+            }).done((response) =>{
+                const listOfAllShows = [];
+                response.map(show => {
+                    const createdShow = new Show(show.name, show.id, show.image.original, show.summary, show.rating);
+                    listOfAllShows.push(createdShow);
+
+                    listOfAllShows.forEach(show =>{
+                        if(show.id === parseInt(id)){
+                            createdShow = show;
+                        }
+                    })
+                })
+            })
+            
             const clickedShow = this.listOfAllShows.find(show => {
                 return parseInt(evId) === show.id;
             })
             return clickedShow;
-        },
+        }, 
 
-        fetchSeasonsAndCast(success, fail, clickedShow) {
+        fetchSeasonsAndCast(clickedShow, success, fail) {
+
             const request = $.ajax({
-                url: `http://api.tvmaze.com/shows/${clickedShow.id}/seasons`,
+                url: `http://api.tvmaze.com/shows/${clickedShow.id}?embed[]=seasons&embed[]=cast`,
                 method: "GET"
             }).done(response => {
-                response.map(season => {
-                    const createdSeason = new Season(season.premiereDate, season.endDate, response.length);
-                    this.listOfSeasons.push(createdSeason);
+                console.log(response)
+                const listOfActors = [];
+                const listOfSeasons = [];
+                const seasonsArray = response._embedded.seasons;
+                const castArray = response._embedded.cast;
+                seasonsArray.map(item => {
+
+                    const createdSeason = new Season(item.premiereDate, item.endDate, item.length);
+                    listOfSeasons.push(createdSeason);
                 })
+                castArray.map(item => {
+                    const createdPerson = new Person(item.person.name)
+                    const createdActor = new Actor(createdPerson);
+                    listOfActors.push(createdActor);
+                })
+                success(clickedShow, listOfSeasons, listOfActors);
             }).fail((jq, textStatus) => {
                 fail();
             });
-
-            const castRequest = $.ajax({
-                url: `http://api.tvmaze.com/shows/${clickedShow.id}/cast`,
-                method: "GET"
-            }).done(response => {
-                response.map(actor => {
-                    const createdPerson = new Person(actor.person.name)
-                    const createdActor = new Actor(createdPerson);
-                    this.listOfActors.push(createdActor);
-                })
-                success(clickedShow, this.listOfSeasons, this.listOfActors);
-            }).fail((jq, textStatus) => {
-                fail();
-            })
         },
 
-        findSearchShows(searchValue, showSearched) {
-            const completeList = this.listOfAllShows;
-            const listOfSearchedSuggestions= [];
-            completeList.forEach(show => {
-                const lowercasedName = show.name.toLowerCase();
-                if (lowercasedName.includes(searchValue)) {
-                    listOfSearchedSuggestions.push(show);
-                }          
+        fetchSearchShows(searchValue, showSearched, fail) {
+            const request = $.ajax({
+                url: `http://api.tvmaze.com/shows`,
+                method: "GET"
+            }).done((response) => {
+                const listOfAllShows = [];
+                const listOfSearchedSuggestions = [];
+                response.map(show => {
+                    const createdShow = new Show(show.name, show.id, show.image.original, show.summary, show.rating);
+                    listOfAllShows.push(createdShow);
+                })
+               
+                listOfAllShows.forEach(show => {
+                    const lowerCasedName = show.name.toLowerCase();
+                    if (lowerCasedName.includes(searchValue)) {
+                        listOfSearchedSuggestions.push(show);
+                    }
+                })
+                const slicedList = listOfSearchedSuggestions.slice(0, 10);
+                showSearched(slicedList);
+                
+            }).fail((jq, textStatus) => {
+                failed();
             })
-            const slicedList = listOfSearchedSuggestions.slice(0,10);
-            showSearched(slicedList);
+            
         }
     }
 

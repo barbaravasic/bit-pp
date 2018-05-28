@@ -22,10 +22,12 @@ const uiModule = (function () {
         },
 
         failed() {
-            alert(`Something went wrong`);
+            alert(`Somthing went wrong`);
         },
 
-        
+        setLocalStorage(id) {
+            localStorage.setItem("id", id);
+        },
 
         // redirectionToShowInfo() {
         //     location.href = "show_info.html";
@@ -44,7 +46,7 @@ const uiModule = (function () {
             })
             listOfActors.forEach(actor => {
                 const $liActors = $(`<li>`);
-                $liActors.text(`${actor.name.name}`);
+                $liActors.text(`${actor.person.name}`);
                 $ulACtors.append($liActors);
             })
             const $infoDisplay = $(`
@@ -72,7 +74,7 @@ const uiModule = (function () {
                 </div>
             </div>
             <div class='row description'>
-                <div class='col-12'>
+                <div class'col-12'>
                     ${chosenShow.description}
                 </div>
             </div>

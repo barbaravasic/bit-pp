@@ -5,24 +5,13 @@ const dataModule = (function () {
         movies: []
     }
 
-    class Movie {
-        constructor(title, length, genre) {
-           this.title = title;
-           this.length = parseInt(length);
-           this.genre = genre;
-
-    }
-
-    getMovieInfo() {
-        return `${this.title}, ${this.genre}`;
-    }
-
-    }
+    const Movie = require('./entities/Movie')
+    
 
 
 
     //validation
-    const isValid = ({title, length, genre}) => {
+    const isValid = ({ title, length, genre }) => {
 
         if (!title || !length || !genre) {
 
@@ -42,7 +31,7 @@ const dataModule = (function () {
 
 
     //createMovie
-    const createMovie = ({title, length, genre}) => {
+    const createMovie = ({ title, length, genre }) => {
         const createdMovie = new Movie(title, length, genre);
         store.movies.push(createdMovie);
         return createdMovie;
@@ -71,7 +60,7 @@ const dataModule = (function () {
 
 
 //UI
-const uiModule = (function() {
+const uiModule = (function () {
 
     const titleInput = document.querySelector("#title");
     const genreInput = document.querySelector("#genre");
@@ -132,11 +121,11 @@ const main = (function (data, ui) {
     const addMovieBtn = document.querySelector("#button-movie");
 
     addMovieBtn.addEventListener("click", function () {
-        
+
         const collectedData = ui.collectedData();
-       
+
         const isValid = data.isValid(collectedData);
-        
+
         if (!isValid) {
             ui.displayError(isValid);
             return

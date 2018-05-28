@@ -4,7 +4,7 @@ const controller = (function (ui, data) {
     if (event.target.parentElement.tagName === "A" || event.target.tagName === "A") {
       event.preventDefault();
       data.setLocalStorage(event.target.id);
-      window.open('./show_info.html');
+      location.href = './show_info.html';
     }
   }
   function searchHandler(event) {

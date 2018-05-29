@@ -1,14 +1,13 @@
-const uiModule = (function () {
-    return {
 
-        $searchInput: $(`.search-box`),
 
-        displayTop50(list) {
-            const $mainContainer = $(`.main`);
-            const $row = $(`<div class='row'>`);
+// export const $searchInput = $(`.search-box`);
 
-            list.forEach(show => {
-                const $card = $(`
+export const displayTop50 = (list) => {
+    const $mainContainer = $(`.main`);
+    const $row = $(`<div class='row'>`);
+
+    list.forEach(show => {
+        const $card = $(`
                 <div class='col-12 col-md-6 col-lg-4 show' id='${show.id}'>
                     <a href='#'>
                         <img src='${show.posterUrl}' id='${show.id}'>
@@ -16,33 +15,32 @@ const uiModule = (function () {
                     </a>
                 </div>
                 `)
-                $mainContainer.append($row);
-                $row.append($card);
-            })
-        },
+        $mainContainer.append($row);
+        $row.append($card);
+    })
+};
 
-        failed() {
-            alert(`Something went wrong`);
-        },
+export const failed = () => {
+    alert(`Something went wrong`);
+};
 
-        displayOnShowInfo(chosenShow, listOfSeasons, listOfActors) {
-            // const $mainContainer = $(`#show-info-main`).empty();
-            const $mainContainer = $(`#show-info-main`)
-            const $chosenShowTitle = $(`<h3>${chosenShow.name}</h3>`)
-            const $ulSeasons = $(`<ul>`);
-            const $seasonsTitle = $(`<h4 class='showTitle'>`);
-            const $ulACtors = $(`<ul>`);
-            listOfSeasons.forEach(season => {
-                const $li = $(`<li>`);
-                $li.text(`${season.startDate} - ${season.endDate}`);
-                $ulSeasons.append($li);
-            })
-            listOfActors.forEach(actor => {
-                const $liActors = $(`<li>`);
-                $liActors.text(`${actor.name.name}`);
-                $ulACtors.append($liActors);
-            })
-            const $infoDisplay = $(`
+export const displayOnShowInfo = (chosenShow, listOfSeasons, listOfActors) => {
+    const $mainContainer = $(`#show-info-main`)
+    const $chosenShowTitle = $(`<h3>${chosenShow.name}</h3>`)
+    const $ulSeasons = $(`<ul>`);
+    const $seasonsTitle = $(`<h4 class='showTitle'>`);
+    const $ulACtors = $(`<ul>`);
+    listOfSeasons.forEach(season => {
+        const $li = $(`<li>`);
+        $li.text(`${season.startDate} - ${season.endDate}`);
+        $ulSeasons.append($li);
+    })
+    listOfActors.forEach(actor => {
+        const $liActors = $(`<li>`);
+        $liActors.text(`${actor.name.name}`);
+        $ulACtors.append($liActors);
+    })
+    const $infoDisplay = $(`
             <div class='row poster-and-lists'>
                 <div class='col-12 col-md-6'>
                     <img src='${chosenShow.posterUrl}' id='${chosenShow.id}' class='info-img'>
@@ -72,31 +70,31 @@ const uiModule = (function () {
                 </div>
             </div>
             `);
-            $mainContainer.append($chosenShowTitle);
-            $mainContainer.append($infoDisplay);
-        },
+    $mainContainer.append($chosenShowTitle);
+    $mainContainer.append($infoDisplay);
+};
 
-        displaySearchList(listToDisplay) {
-            const $searchDiv = $(`.search-dropdown`);
-            $searchDiv.css("display", "block")
-            const $ulSearch = $(`.dropdown-ul`);
-            $ulSearch.empty();
-            listToDisplay.forEach(show => {
-                const $liSearch = $(`
+export const displaySearchList = (listToDisplay) => {
+    const $searchDiv = $(`.search-dropdown`);
+    $searchDiv.css("display", "block")
+    const $ulSearch = $(`.dropdown-ul`);
+    $ulSearch.empty();
+    listToDisplay.forEach(show => {
+        const $liSearch = $(`
                     <li >
                         <a href='#' id='${show.id}'> ${show.name}</a>
                     </li>
                 `);
 
-                $ulSearch.append($liSearch);
-            })
+        $ulSearch.append($liSearch);
+    })
 
-        },
-        reset() {
-            $(`.search-box`).val("");
-            $(`.dropdown-ul`).empty();
-        },
-    }
+};
+
+export const reset = () => {
+    $(`.search-box`).val("");
+    $(`.dropdown-ul`).empty();
+};
 
 
-})()
+

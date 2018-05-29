@@ -24,9 +24,9 @@ export const failed = () => {
     alert(`Something went wrong`);
 };
 
-export const displayOnShowInfo = (chosenShow, listOfSeasons, listOfActors) => {
+export const displayOnShowInfo = ({clickedShow, listOfSeasons, listOfActors}) => {
     const $mainContainer = $(`#show-info-main`)
-    const $chosenShowTitle = $(`<h3>${chosenShow.name}</h3>`)
+    const $chosenShowTitle = $(`<h3>${clickedShow.name}</h3>`)
     const $ulSeasons = $(`<ul>`);
     const $seasonsTitle = $(`<h4 class='showTitle'>`);
     const $ulACtors = $(`<ul>`);
@@ -43,7 +43,7 @@ export const displayOnShowInfo = (chosenShow, listOfSeasons, listOfActors) => {
     const $infoDisplay = $(`
             <div class='row poster-and-lists'>
                 <div class='col-12 col-md-6'>
-                    <img src='${chosenShow.posterUrl}' id='${chosenShow.id}' class='info-img'>
+                    <img src='${clickedShow.posterUrl}' id='${clickedShow.id}' class='info-img'>
                 </div>
                 <div class='col-12 col-md-6'>
                     <div class='row'> 
@@ -66,7 +66,7 @@ export const displayOnShowInfo = (chosenShow, listOfSeasons, listOfActors) => {
             </div>
             <div class='row description'>
                 <div class='col-12'>
-                    ${chosenShow.description}
+                    ${clickedShow.description}
                 </div>
             </div>
             `);

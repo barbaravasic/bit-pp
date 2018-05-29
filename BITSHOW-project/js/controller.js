@@ -4,7 +4,6 @@ import * as data from './data_module.js';
 function showInfoHandler(event) {
   if (event.target.parentElement.tagName === "A" || event.target.tagName === "A") {
     event.preventDefault();
-    console.log(event.target.parentElement.tagName)
     data.setLocalStorage(event.target.id);
     location.href = './show_info.html';
   }
@@ -12,16 +11,19 @@ function showInfoHandler(event) {
 
 function searchHandler(event) {
   const searchValue = $(`.search-box`).val();
-  data.fetchSearchShows(searchValue, ui.displaySearchList, ui.fail);
+  data.fetchSearchShows(searchValue)
+  .then(ui.displaySearchList);
 }
 
-
-
 export const init = () => {
-  data.fetchShow(ui.displayTop50, ui.failed);
+  data.fetchShow()
+  .then(ui.displayTop50)
+  .catch(ui.failed);
+
   $(`body`).on("click", showInfoHandler);
   $(`.search-box`).on("keyup", searchHandler);
   const id = localStorage.getItem("id");
-  data.fetchSeasonsAndCast(id, ui.displayOnShowInfo, ui.failed);
+  data.fetchSeasonsAndCast(id)
+  .then(ui.displayOnShowInfo);
 }
   

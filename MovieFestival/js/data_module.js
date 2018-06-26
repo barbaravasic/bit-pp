@@ -1,5 +1,6 @@
-const store = {
-    movies: []
+export const store = {
+    movies: [],
+    programs: []
 }
 
 class Movie {
@@ -21,7 +22,7 @@ class Movie {
 class Program {
     constructor(date) {
         const inputDate = new Date(date);
-        this.date = `${inputDate.getDate()}.${inputDate.getMonth()}.${inputDate.getFullYear()}`;
+        this.date = `${inputDate.getDate()}.${inputDate.getMonth() + 1}.${inputDate.getFullYear()}`;
         this.movieList = [];
     }
     addMovie(movie) {
@@ -38,7 +39,7 @@ class Program {
 
     getInfo() {
         let output = "";
-        if (this.moviesLength.length === 0) {
+        if (this.movieList.length === 0) {
             output = `${this.date}, program duration: TBA`;
         } else {
             output = `${this.date}, ${this.movieList.length} movies, ${this.moviesLength()} min`;
@@ -72,6 +73,29 @@ export const calculateMoviesLength = () => {
         totalLength += movie.length;
     })
     return totalLength;
+}
+
+export const createProgram = (date) => {
+    const createdProgram = new Program(date);
+    store.programs.push(createdProgram);
+    return createdProgram;
+}
+
+export const addMovieToProgram = (movieIndex, programIndex) => {
+    const chosenMovie = store.movies[movieIndex];
+    const chosenProgram = store.programs[programIndex];
+
+    chosenProgram.addMovie(chosenMovie);
+
+    return {
+        chosenMovie,
+        chosenProgram
+    }
+}
+
+export const getProgramInfo = (chosenProgram) => {
+
+    return chosenProgram.getInfo()
 }
 
 

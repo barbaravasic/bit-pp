@@ -10,8 +10,6 @@ var chooseMovieInput = document.querySelector("#choose-movie");
 var chooseProgramInput = document.querySelector("#choose-program");
 var dateInput = document.querySelector("#date");
 
-
-
 function Movie(title, length, genre) {
     this.title = title;
     this.length = length;

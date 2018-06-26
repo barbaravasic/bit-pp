@@ -26,12 +26,16 @@ export const collectMovieInputs = () => {
 }
 
 export const displayError = () => {
-    const createMovieValidDiv = document.querySelector(".first");
-    const createMovieValidOutput = document.createElement("p");
+    const createMovieValidOutput = document.querySelector(".first p");
     createMovieValidOutput.textContent = "All fields required!";
+    createMovieValidOutput.classList.remove("hide");
     createMovieValidOutput.classList.add("validation");
+}
 
-    createMovieValidDiv.appendChild(createMovieValidOutput);
+export const removeError = () => {
+    const createMovieValidOutput = document.querySelector(".first p");
+    createMovieValidOutput.classList.add("hide")
+    
 }
 
 export const displayMovie = (movie) => {
@@ -84,6 +88,19 @@ export const clearProgramInputs = () => {
     const { dateInput } = selectProgramInputs();
 
     dateInput.value = "";
+}
+
+export const displayProgramInputError = () => {
+    const createProgramValidOutput = document.querySelector(".second p");
+    createProgramValidOutput.textContent = "Please choose date!";
+    createProgramValidOutput.classList.remove("hide");    
+    createProgramValidOutput.classList.add("validation");
+}
+
+export const removeProgramError = () => {
+    const createProgramValidOutput = document.querySelector(".second p");
+    createProgramValidOutput.classList.add("hide")
+    
 }
 
 export const displayMovieOptions = (movieList) => {

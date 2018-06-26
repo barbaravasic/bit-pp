@@ -8,6 +8,7 @@ const addMovieHandler = () => {
         ui.displayError();
         return
     }
+    ui.removeError();
     const createdMovie = data.createMovie(collectedData.title, collectedData.length, collectedData.genre);
     ui.displayMovie(createdMovie);
     ui.displayMovieLength(data.calculateMoviesLength());
@@ -17,7 +18,12 @@ const addMovieHandler = () => {
 
 const addProgramHandler = () => {
     const collectedProgramInputs = ui.collectProgramInputs();
-
+    const isValidDate = data.isValidDate(collectedProgramInputs.date);
+    if (!isValidDate) {
+        ui.displayProgramInputError();
+        return
+    }
+    ui.removeProgramError();
     const createdProgram = data.createProgram(collectedProgramInputs.date);
     ui.displayProgram(createdProgram);
     ui.clearProgramInputs();

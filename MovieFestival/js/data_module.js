@@ -13,8 +13,9 @@ class Movie {
         const genreFirstLetter = this.genre.slice(0, 1);
         const genreLastLetter = this.genre.slice(this.genre.length - 1);
         const genreID = (`${genreFirstLetter}${genreLastLetter}`).toUpperCase();
+        const movieTitle = `${this.title[0].toUpperCase()}${this.title.slice(1)}`
 
-        const output = `${this.title}, ${this.length}min, ${genreID}`;
+        const output = `${movieTitle}, ${this.length}min, ${genreID}`;
         return output;
     }
 }
@@ -91,6 +92,14 @@ export const addMovieToProgram = (movieIndex, programIndex) => {
         chosenMovie,
         chosenProgram
     }
+}
+
+export const isValidDate = (date) => {
+    if (!date) {
+
+        return false;
+    }
+    return true
 }
 
 export const getProgramInfo = (chosenProgram) => {
